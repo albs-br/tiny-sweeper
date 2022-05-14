@@ -1,0 +1,32 @@
+h1,
+h2 {
+  font-family: Lato;
+}
+
+.cell {
+  position: absolute;
+
+  width: 16px;
+  height: 16px;
+}
+
+.unclicked {
+  background-color: rgb(226, 216, 216);
+
+  border-top: rgb(255, 255, 255) solid 2px;
+  border-left: rgb(255, 255, 255) solid 2px;
+  border-right: rgb(65, 61, 61) solid 2px;
+  border-bottom: rgb(65, 61, 61) solid 2px;
+}
+
+.empty {
+  width: 18px;
+  height: 18px;
+
+  background-color: rgb(226, 216, 216);
+  border: rgb(139, 133, 133) solid 1px;
+
+  font-weight: bold;
+  text-align: center;
+  color: red;
+}
