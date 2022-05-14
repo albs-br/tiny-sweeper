@@ -86,17 +86,11 @@ for (let line = 0; line < LINES; line++) {
 }
 appDiv.innerHTML = playfieldHTML;
 
-
-
 // Show all cells
-const collection = document.getElementsByClassName("cell");
+const collection = document.getElementsByClassName('cell');
 for (let i = 0; i < collection.length; i++) {
   collection[i].click();
 }
-
-
-
-
 
 function getRandomInt(max) {
   return Math.floor(Math.random() * max);
@@ -114,22 +108,24 @@ const CellClick = (cell) => {
   if (current.hasBomb) {
     cell.innerHTML = '*';
   } else {
-    cell.innerHTML = current.neighborhood;
-    switch (current.neighborhood) {
-      case 1:
-        cell.style.color = 'blue';
-        break;
-      case 2:
-        cell.style.color = 'green';
-        break;
-      case 3:
-        cell.style.color = 'red';
-        break;
-      case 4:
-        cell.style.color = 'darkblue';
-        break;
-      default:
-        cell.style.color = 'black';
+    if (current.neighborhood > 0) {
+      cell.innerHTML = current.neighborhood;
+      switch (current.neighborhood) {
+        case 1:
+          cell.style.color = 'blue';
+          break;
+        case 2:
+          cell.style.color = 'green';
+          break;
+        case 3:
+          cell.style.color = 'red';
+          break;
+        case 4:
+          cell.style.color = 'darkblue';
+          break;
+        default:
+          cell.style.color = 'black';
+      }
     }
   }
 };
