@@ -5,7 +5,7 @@ const appDiv = document.getElementById('app');
 const COLUMNS = 12;
 const LINES = 24;
 const CELL_SIDE = 20;
-const BOMBS_NUMBER = 100;
+const BOMBS_NUMBER = 10;
 
 // Initialize playfield matrix
 var matrix = [];
@@ -37,7 +37,7 @@ for (let bomb = 0; bomb < BOMBS_NUMBER; bomb++) {
 // Calc neighborhood for each cell
 for (let line = 1; line < LINES - 1; line++) {
   for (let col = 1; col < COLUMNS - 1; col++) {
-    if(!matrix[line][col].hasBomb) {
+    if (!matrix[line][col].hasBomb) {
       let bombs = 0;
       if (matrix[line - 1][col - 1].hasBomb) bombs++;
       if (matrix[line - 1][col].hasBomb) bombs++;
@@ -88,12 +88,6 @@ for (let line = 0; line < LINES; line++) {
 }
 appDiv.innerHTML = playfieldHTML;
 
-// Show all cells
-const collection = document.getElementsByClassName('cell');
-for (let i = 0; i < collection.length; i++) {
-  collection[i].click();
-}
-
 function getRandomInt(max) {
   return Math.floor(Math.random() * max);
 }
@@ -102,17 +96,19 @@ const CellClick = (cell) => {
   cell.classList.remove('unclicked');
   cell.classList.add('empty');
 
-  console.info(cell.getAttribute("data-line") + ", " + cell.getAttribute("data-col"));
+  // console.info(
+  //   cell.getAttribute('data-line') + ', ' + cell.getAttribute('data-col')
+  // );
 
-  let current =
+  let currentMatrixPos =
     matrix[cell.getAttribute('data-line')][cell.getAttribute('data-col')];
 
-  if (current.hasBomb) {
+  if (currentMatrixPos.hasBomb) {
     cell.innerHTML = '*';
   } else {
-    if (current.neighborhood > 0) {
-      cell.innerHTML = current.neighborhood;
-      switch (current.neighborhood) {
+    if (currentMatrixPos.neighborhood > 0) {
+      cell.innerHTML = currentMatrixPos.neighborhood;
+      switch (currentMatrixPos.neighborhood) {
         case 1:
           cell.style.color = 'blue';
           break;
@@ -131,7 +127,18 @@ const CellClick = (cell) => {
         default:
           cell.style.color = 'black';
       }
+    } else {
+      // recursivelly find all empty cells connected to this one
+      EmptyCell(cell);
     }
   }
 };
 window.CellClick = CellClick;
+
+const EmptyCell = (cell) => {};
+
+// Show all cells
+// const collection = document.getElementsByClassName('cell');
+// for (let i = 0; i < collection.length; i++) {
+//   collection[i].click();
+// }
