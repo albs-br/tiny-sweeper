@@ -37,29 +37,31 @@ for (let bomb = 0; bomb < BOMBS_NUMBER; bomb++) {
 // Calc neighborhood for each cell
 for (let line = 1; line < LINES - 1; line++) {
   for (let col = 1; col < COLUMNS - 1; col++) {
-    let bombs = 0;
-    if (matrix[line - 1][col - 1].hasBomb) bombs++;
-    if (matrix[line - 1][col].hasBomb) bombs++;
-    if (matrix[line - 1][col + 1].hasBomb) bombs++;
-    if (matrix[line][col - 1].hasBomb) bombs++;
-    if (matrix[line][col + 1].hasBomb) bombs++;
-    if (matrix[line + 1][col - 1].hasBomb) bombs++;
-    if (matrix[line + 1][col].hasBomb) bombs++;
-    if (matrix[line + 1][col + 1].hasBomb) bombs++;
+    if(!matrix[line][col].hasBomb) {
+      let bombs = 0;
+      if (matrix[line - 1][col - 1].hasBomb) bombs++;
+      if (matrix[line - 1][col].hasBomb) bombs++;
+      if (matrix[line - 1][col + 1].hasBomb) bombs++;
+      if (matrix[line][col - 1].hasBomb) bombs++;
+      if (matrix[line][col + 1].hasBomb) bombs++;
+      if (matrix[line + 1][col - 1].hasBomb) bombs++;
+      if (matrix[line + 1][col].hasBomb) bombs++;
+      if (matrix[line + 1][col + 1].hasBomb) bombs++;
 
-    // if (line > 0) {
-    //   if (matrix[line - 1][col].hasBomb) bombs++;
-    // }
-    // if (line < LINES - 1) {
-    //   if (matrix[line + 1][col].hasBomb) bombs++;
-    // }
-    // if (col > 0) {
-    //   if (matrix[line][col - 1].hasBomb) bombs++;
-    // }
-    // if (col < COLUMNS - 1) {
-    //   if (matrix[line][col + 1].hasBomb) bombs++;
-    // }
-    matrix[line][col].neighborhood = bombs;
+      // if (line > 0) {
+      //   if (matrix[line - 1][col].hasBomb) bombs++;
+      // }
+      // if (line < LINES - 1) {
+      //   if (matrix[line + 1][col].hasBomb) bombs++;
+      // }
+      // if (col > 0) {
+      //   if (matrix[line][col - 1].hasBomb) bombs++;
+      // }
+      // if (col < COLUMNS - 1) {
+      //   if (matrix[line][col + 1].hasBomb) bombs++;
+      // }
+      matrix[line][col].neighborhood = bombs;
+    }
   }
 }
 
@@ -122,6 +124,9 @@ const CellClick = (cell) => {
           break;
         case 4:
           cell.style.color = 'darkblue';
+          break;
+        case 5:
+          cell.style.color = 'darkred';
           break;
         default:
           cell.style.color = 'black';
