@@ -8,7 +8,6 @@ const CELL_SIDE = 20;
 const BOMBS_NUMBER = 100;
 
 // Randomly put bombs and calc each neighborhood
-//Array(LINES).fill().map(() => Array(COLUMNS).fill());
 var matrix = [];
 for (let line = 0; line < LINES; line++) {
   matrix[line] = [];
@@ -20,6 +19,7 @@ for (let line = 0; line < LINES; line++) {
     };
   }
 }
+
 for (let bomb = 0; bomb < BOMBS_NUMBER; bomb++) {
   let bombSet = false;
   do {
@@ -33,6 +33,20 @@ for (let bomb = 0; bomb < BOMBS_NUMBER; bomb++) {
   }
   while (!bombSet);
 }
+
+for (let line = 0; line < LINES; line++) {
+  for (let col = 0; col < COLUMNS; col++) {
+    let bombs = 0;
+    if(line > 0) {
+      if(matrix[line-1][col].hasBomb) bombs++;
+    }
+    if(col > 0) {
+      if(matrix[line][col-1].hasBomb) bombs++;
+    }
+    matrix[line][col].neighborhood = bombs;
+  }
+}
+
 
 // Draw playfield
 let playfieldHTML = '';
@@ -65,11 +79,13 @@ const CellClick = (cell) => {
 
   //console.info(cell.getAttribute("data-line"));
 
-  if(matrix[cell.getAttribute("data-line")][cell.getAttribute("data-col")].hasBomb) {
+  let current = matrix[cell.getAttribute("data-line")][cell.getAttribute("data-col")];
+
+  if(current.hasBomb) {
     cell.innerHTML = '*';
   }
   else {
-    cell.innerHTML = '1';
+    cell.innerHTML = current.neighborhood;
   }
 };
 window.CellClick = CellClick;
