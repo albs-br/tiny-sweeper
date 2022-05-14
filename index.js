@@ -15,7 +15,7 @@ for (let line = 0; line < LINES; line++) {
     matrix[line][col] = {
       hasBomb: false,
       isClicked: false,
-      neighborhood: 0
+      neighborhood: 0,
     };
   }
 }
@@ -26,27 +26,31 @@ for (let bomb = 0; bomb < BOMBS_NUMBER; bomb++) {
     bombSet = false;
     let line = getRandomInt(LINES);
     let col = getRandomInt(COLUMNS);
-    if(!matrix[line][col].hasBomb) {
+    if (!matrix[line][col].hasBomb) {
       matrix[line][col].hasBomb = true;
       bombSet = true;
     }
-  }
-  while (!bombSet);
+  } while (!bombSet);
 }
 
 for (let line = 0; line < LINES; line++) {
   for (let col = 0; col < COLUMNS; col++) {
     let bombs = 0;
-    if(line > 0) {
-      if(matrix[line-1][col].hasBomb) bombs++;
+    if (line > 0) {
+      if (matrix[line - 1][col].hasBomb) bombs++;
     }
-    if(col > 0) {
-      if(matrix[line][col-1].hasBomb) bombs++;
+    if (line < LINES - 1) {
+      if (matrix[line + 1][col].hasBomb) bombs++;
+    }
+    if (col > 0) {
+      if (matrix[line][col - 1].hasBomb) bombs++;
+    }
+    if (col < COLUMNS - 1) {
+      if (matrix[line][col + 1].hasBomb) bombs++;
     }
     matrix[line][col].neighborhood = bombs;
   }
 }
-
 
 // Draw playfield
 let playfieldHTML = '';
@@ -54,7 +58,11 @@ for (let line = 0; line < LINES; line++) {
   for (let col = 0; col < COLUMNS; col++) {
     playfieldHTML +=
       "<div class='cell unclicked' " +
-      " data-line='" + line + "' data-col='" + col + "' " +
+      " data-line='" +
+      line +
+      "' data-col='" +
+      col +
+      "' " +
       " style='left: " +
       col * CELL_SIDE +
       'px; top: ' +
@@ -67,8 +75,6 @@ for (let line = 0; line < LINES; line++) {
 }
 appDiv.innerHTML = playfieldHTML;
 
-
-
 function getRandomInt(max) {
   return Math.floor(Math.random() * max);
 }
@@ -79,12 +85,12 @@ const CellClick = (cell) => {
 
   //console.info(cell.getAttribute("data-line"));
 
-  let current = matrix[cell.getAttribute("data-line")][cell.getAttribute("data-col")];
+  let current =
+    matrix[cell.getAttribute('data-line')][cell.getAttribute('data-col')];
 
-  if(current.hasBomb) {
+  if (current.hasBomb) {
     cell.innerHTML = '*';
-  }
-  else {
+  } else {
     cell.innerHTML = current.neighborhood;
   }
 };
