@@ -20,11 +20,12 @@ h2 {
 }
 
 .empty {
-  width: 18px;
-  height: 18px;
+  width: 19px;
+  height: 19px;
 
   background-color: rgb(202, 196, 196);
-  border: rgb(139, 133, 133) solid 1px;
+  border-top: rgb(139, 133, 133) solid 1px;
+  border-left: rgb(139, 133, 133) solid 1px;
 
   font-weight: bold;
   text-align: center;

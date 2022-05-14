@@ -5,7 +5,7 @@ const appDiv = document.getElementById('app');
 const COLUMNS = 12;
 const LINES = 24;
 const CELL_SIDE = 20;
-const BOMBS_NUMBER = 100;
+const BOMBS_NUMBER = 10;
 
 // Initialize playfield matrix
 var matrix = [];
@@ -22,7 +22,7 @@ for (let line = 0; line < LINES; line++) {
 
 // Randomly put bombs
 for (let bomb = 0; bomb < BOMBS_NUMBER; bomb++) {
-  let bombSet = false;
+  let bombSet;
   do {
     bombSet = false;
     let line = getRandomInt(LINES);
