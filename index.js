@@ -7,7 +7,7 @@ const LINES = 24;
 const CELL_SIDE = 20;
 const BOMBS_NUMBER = 100;
 
-// Randomly put bombs and calc each neighborhood
+// Initialize playfield matrix
 var matrix = [];
 for (let line = 0; line < LINES; line++) {
   matrix[line] = [];
@@ -20,6 +20,7 @@ for (let line = 0; line < LINES; line++) {
   }
 }
 
+// Randomly put bombs
 for (let bomb = 0; bomb < BOMBS_NUMBER; bomb++) {
   let bombSet = false;
   do {
@@ -33,21 +34,31 @@ for (let bomb = 0; bomb < BOMBS_NUMBER; bomb++) {
   } while (!bombSet);
 }
 
-for (let line = 0; line < LINES; line++) {
-  for (let col = 0; col < COLUMNS; col++) {
+// Calc neighborhood for each cell
+for (let line = 1; line < LINES - 1; line++) {
+  for (let col = 1; col < COLUMNS - 1; col++) {
     let bombs = 0;
-    if (line > 0) {
-      if (matrix[line - 1][col].hasBomb) bombs++;
-    }
-    if (line < LINES - 1) {
-      if (matrix[line + 1][col].hasBomb) bombs++;
-    }
-    if (col > 0) {
-      if (matrix[line][col - 1].hasBomb) bombs++;
-    }
-    if (col < COLUMNS - 1) {
-      if (matrix[line][col + 1].hasBomb) bombs++;
-    }
+    if (matrix[line - 1][col - 1].hasBomb) bombs++;
+    if (matrix[line - 1][col].hasBomb) bombs++;
+    if (matrix[line - 1][col + 1].hasBomb) bombs++;
+    if (matrix[line][col - 1].hasBomb) bombs++;
+    if (matrix[line][col + 1].hasBomb) bombs++;
+    if (matrix[line + 1][col - 1].hasBomb) bombs++;
+    if (matrix[line + 1][col].hasBomb) bombs++;
+    if (matrix[line + 1][col + 1].hasBomb) bombs++;
+
+    // if (line > 0) {
+    //   if (matrix[line - 1][col].hasBomb) bombs++;
+    // }
+    // if (line < LINES - 1) {
+    //   if (matrix[line + 1][col].hasBomb) bombs++;
+    // }
+    // if (col > 0) {
+    //   if (matrix[line][col - 1].hasBomb) bombs++;
+    // }
+    // if (col < COLUMNS - 1) {
+    //   if (matrix[line][col + 1].hasBomb) bombs++;
+    // }
     matrix[line][col].neighborhood = bombs;
   }
 }
@@ -75,6 +86,18 @@ for (let line = 0; line < LINES; line++) {
 }
 appDiv.innerHTML = playfieldHTML;
 
+
+
+// Show all cells
+const collection = document.getElementsByClassName("cell");
+for (let i = 0; i < collection.length; i++) {
+  collection[i].click();
+}
+
+
+
+
+
 function getRandomInt(max) {
   return Math.floor(Math.random() * max);
 }
@@ -92,6 +115,22 @@ const CellClick = (cell) => {
     cell.innerHTML = '*';
   } else {
     cell.innerHTML = current.neighborhood;
+    switch (current.neighborhood) {
+      case 1:
+        cell.style.color = 'blue';
+        break;
+      case 2:
+        cell.style.color = 'green';
+        break;
+      case 3:
+        cell.style.color = 'red';
+        break;
+      case 4:
+        cell.style.color = 'darkblue';
+        break;
+      default:
+        cell.style.color = 'black';
+    }
   }
 };
 window.CellClick = CellClick;
