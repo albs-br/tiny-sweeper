@@ -5,7 +5,7 @@ const appDiv = document.getElementById('app');
 const COLUMNS = 12;
 const LINES = 24;
 const CELL_SIDE = 20;
-const BOMBS_NUMBER = 10;
+const BOMBS_NUMBER = 100;
 
 // Initialize playfield matrix
 var matrix = [];
@@ -102,7 +102,7 @@ const CellClick = (cell) => {
   cell.classList.remove('unclicked');
   cell.classList.add('empty');
 
-  //console.info(cell.getAttribute("data-line"));
+  console.info(cell.getAttribute("data-line") + ", " + cell.getAttribute("data-col"));
 
   let current =
     matrix[cell.getAttribute('data-line')][cell.getAttribute('data-col')];
