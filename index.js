@@ -5,7 +5,7 @@ const appDiv = document.getElementById('app');
 const COLUMNS = 12;
 const LINES = 24;
 const CELL_SIDE = 20;
-const BOMBS_NUMBER = 100;
+const BOMBS_NUMBER = 10;
 
 // Initialize playfield matrix
 var matrix = [];
@@ -159,14 +159,18 @@ const EmptyCell = (cell) => {
   let line = cell.getAttribute('data-line');
   let col = cell.getAttribute('data-col');
 
-  let currentMatrixPos = matrix[line][col];
-  if (currentMatrixPos.hasBomb) return;
+  console.info(line + ', ' + col);
 
-  if (line > 0) matrix[line - 1][col].cell.click();
+  let currentMatrixPos = matrix[line][col];
+  if (currentMatrixPos.hasBomb || currentMatrixPos.isClicked) return;
+
+  cell.click();
+
+  if (line > 0) EmptyCell(matrix[line - 1][col].cell); //matrix[line - 1][col].cell.click();
 };
 
 // Show all cells
-const collection = document.getElementsByClassName('cell');
-for (let i = 0; i < collection.length; i++) {
-  collection[i].click();
-}
+// const collection = document.getElementsByClassName('cell');
+// for (let i = 0; i < collection.length; i++) {
+//   collection[i].click();
+// }
