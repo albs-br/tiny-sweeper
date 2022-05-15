@@ -5,7 +5,7 @@ const appDiv = document.getElementById('app');
 const COLUMNS = 12;
 const LINES = 24;
 const CELL_SIDE = 20;
-const BOMBS_NUMBER = 10;
+const BOMBS_NUMBER = 100;
 
 // Initialize playfield matrix
 var matrix = [];
@@ -16,7 +16,7 @@ for (let line = 0; line < LINES; line++) {
       hasBomb: false,
       isClicked: false,
       neighborhood: 0,
-      cell: undefined
+      cell: undefined,
     };
   }
 }
@@ -36,31 +36,36 @@ for (let bomb = 0; bomb < BOMBS_NUMBER; bomb++) {
 }
 
 // Calc neighborhood for each cell
-for (let line = 1; line < LINES - 1; line++) {
-  for (let col = 1; col < COLUMNS - 1; col++) {
+for (let line = 0; line < LINES; line++) {
+  for (let col = 0; col < COLUMNS; col++) {
     if (!matrix[line][col].hasBomb) {
       let bombs = 0;
-      if (matrix[line - 1][col - 1].hasBomb) bombs++;
-      if (matrix[line - 1][col].hasBomb) bombs++;
-      if (matrix[line - 1][col + 1].hasBomb) bombs++;
-      if (matrix[line][col - 1].hasBomb) bombs++;
-      if (matrix[line][col + 1].hasBomb) bombs++;
-      if (matrix[line + 1][col - 1].hasBomb) bombs++;
-      if (matrix[line + 1][col].hasBomb) bombs++;
-      if (matrix[line + 1][col + 1].hasBomb) bombs++;
 
-      // if (line > 0) {
-      //   if (matrix[line - 1][col].hasBomb) bombs++;
-      // }
-      // if (line < LINES - 1) {
-      //   if (matrix[line + 1][col].hasBomb) bombs++;
-      // }
-      // if (col > 0) {
-      //   if (matrix[line][col - 1].hasBomb) bombs++;
-      // }
-      // if (col < COLUMNS - 1) {
-      //   if (matrix[line][col + 1].hasBomb) bombs++;
-      // }
+      if (line > 0 && col > 0) {
+        if (matrix[line - 1][col - 1].hasBomb) bombs++;
+      }
+      if (line > 0) {
+        if (matrix[line - 1][col].hasBomb) bombs++;
+      }
+      if (line > 0 && col < COLUMNS - 1) {
+        if (matrix[line - 1][col + 1].hasBomb) bombs++;
+      }
+      if (col > 0) {
+        if (matrix[line][col - 1].hasBomb) bombs++;
+      }
+      if (col < COLUMNS - 1) {
+        if (matrix[line][col + 1].hasBomb) bombs++;
+      }
+      if (line < LINES - 1 && col > 0) {
+        if (matrix[line + 1][col - 1].hasBomb) bombs++;
+      }
+      if (line < LINES - 1) {
+        if (matrix[line + 1][col].hasBomb) bombs++;
+      }
+      if (line < LINES - 1 && col < COLUMNS - 1) {
+        if (matrix[line + 1][col + 1].hasBomb) bombs++;
+      }
+
       matrix[line][col].neighborhood = bombs;
     }
   }
@@ -71,7 +76,11 @@ let playfieldHTML = '';
 for (let line = 0; line < LINES; line++) {
   for (let col = 0; col < COLUMNS; col++) {
     playfieldHTML +=
-      "<div id='cell_" + line + "_" + col + "' " + 
+      "<div id='cell_" +
+      line +
+      '_' +
+      col +
+      "' " +
       " class='cell unclicked' " +
       " data-line='" +
       line +
@@ -90,14 +99,14 @@ for (let line = 0; line < LINES; line++) {
 }
 appDiv.innerHTML = playfieldHTML;
 
+// Upadte matrix to include ref for each HTML cell
 for (let line = 0; line < LINES; line++) {
   for (let col = 0; col < COLUMNS; col++) {
-    matrix[line][col].cell = document.getElementById("cell_" + line + "_" + col);
+    matrix[line][col].cell = document.getElementById(
+      'cell_' + line + '_' + col
+    );
   }
 }
-
-
-
 
 function getRandomInt(max) {
   return Math.floor(Math.random() * max);
@@ -151,13 +160,13 @@ const EmptyCell = (cell) => {
   let col = cell.getAttribute('data-col');
 
   let currentMatrixPos = matrix[line][col];
-  if(currentMatrixPos.hasBomb) return;
+  if (currentMatrixPos.hasBomb) return;
 
-  if(line > 0) matrix[line - 1][col].cell.click();
+  if (line > 0) matrix[line - 1][col].cell.click();
 };
 
 // Show all cells
-// const collection = document.getElementsByClassName('cell');
-// for (let i = 0; i < collection.length; i++) {
-//   collection[i].click();
-// }
+const collection = document.getElementsByClassName('cell');
+for (let i = 0; i < collection.length; i++) {
+  collection[i].click();
+}
