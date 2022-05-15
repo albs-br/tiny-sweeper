@@ -16,6 +16,7 @@ for (let line = 0; line < LINES; line++) {
       hasBomb: false,
       isClicked: false,
       neighborhood: 0,
+      cell: undefined
     };
   }
 }
@@ -70,7 +71,8 @@ let playfieldHTML = '';
 for (let line = 0; line < LINES; line++) {
   for (let col = 0; col < COLUMNS; col++) {
     playfieldHTML +=
-      "<div class='cell unclicked' " +
+      "<div id='cell_" + line + "_" + col + "' " + 
+      " class='cell unclicked' " +
       " data-line='" +
       line +
       "' data-col='" +
@@ -87,6 +89,15 @@ for (let line = 0; line < LINES; line++) {
   }
 }
 appDiv.innerHTML = playfieldHTML;
+
+for (let line = 0; line < LINES; line++) {
+  for (let col = 0; col < COLUMNS; col++) {
+    matrix[line][col].cell = document.getElementById("cell_" + line + "_" + col);
+  }
+}
+
+
+
 
 function getRandomInt(max) {
   return Math.floor(Math.random() * max);
@@ -135,7 +146,15 @@ const CellClick = (cell) => {
 };
 window.CellClick = CellClick;
 
-const EmptyCell = (cell) => {};
+const EmptyCell = (cell) => {
+  let line = cell.getAttribute('data-line');
+  let col = cell.getAttribute('data-col');
+
+  let currentMatrixPos = matrix[line][col];
+  if(currentMatrixPos.hasBomb) return;
+
+  if(line > 0) matrix[line - 1][col].cell.click();
+};
 
 // Show all cells
 // const collection = document.getElementsByClassName('cell');

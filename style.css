@@ -3,6 +3,10 @@ h2 {
   font-family: 'Courier New', Courier, monospace;
 }
 
+/* #app {
+  width: 100%;
+} */
+
 .cell {
   position: absolute;
 
