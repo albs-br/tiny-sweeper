@@ -164,7 +164,7 @@ const EmptyCell = (cell) => {
   let currentMatrixPos = matrix[line][col];
   if (currentMatrixPos.hasBomb || currentMatrixPos.isClicked) return;
 
-  cell.click();
+  //cell.click();
 
   if (line > 0) EmptyCell(matrix[line - 1][col].cell); //matrix[line - 1][col].cell.click();
 };
