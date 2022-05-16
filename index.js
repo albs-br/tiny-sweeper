@@ -1,8 +1,11 @@
+alert("screen resolution: " + screen.width + "x" + screen.height);
+
 const appDiv = document.getElementById('app');
 
 const COLUMNS = 12;
 const LINES = 24;
-const CELL_SIDE = 20;
+const CELL_SIDE = 20; //px
+//const CELL_SIDE = 8; //%
 const BOMBS_NUMBER = 10;
 
 // Initialize playfield matrix
@@ -86,9 +89,9 @@ for (let line = 0; line < LINES; line++) {
       col +
       "' " +
       " style='left: " +
-      col * CELL_SIDE +
+      (col * CELL_SIDE) +
       'px; top: ' +
-      line * CELL_SIDE +
+      (line * CELL_SIDE) +
       "px' " +
       " onclick='window.CellClick(this);' " +
       '>' +

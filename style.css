@@ -1,10 +1,23 @@
+html, body{
+    margin: 0;
+    padding: 0;
+}
+
 h1,
 h2 {
   font-family: 'Courier New', Courier, monospace;
 }
 
+#test1 {
+    width: 100%;
+    height: 100%;
+    background-color: aqua;
+    border: 1px solid black;
+}
+  
 /* #app {
-  width: 100%;
+  width: 100px;
+  background-color: aqua;
 } */
 
 .cell {
@@ -12,15 +25,17 @@ h2 {
 
   width: 16px;
   height: 16px;
+  /* width: 6%;
+  height: 6%; */
 }
 
 .unclicked {
   background-color: rgb(226, 216, 216);
 
-  border-top: rgb(255, 255, 255) solid 2px;
-  border-left: rgb(255, 255, 255) solid 2px;
-  border-right: rgb(65, 61, 61) solid 2px;
-  border-bottom: rgb(65, 61, 61) solid 2px;
+  border-top: 2px solid rgb(255, 255, 255); /* 2px; */
+  border-left: 2px solid  rgb(255, 255, 255); /* 2px; */
+  border-right: 2px solid rgb(65, 61, 61); /* 2px; */
+  border-bottom: 2px solid rgb(65, 61, 61); /* 2px; */
 }
 
 .empty {
@@ -28,8 +43,8 @@ h2 {
   height: 19px;
 
   background-color: rgb(202, 196, 196);
-  border-top: rgb(139, 133, 133) solid 1px;
-  border-left: rgb(139, 133, 133) solid 1px;
+  border-top: 1px solid rgb(139, 133, 133); /* 1px; */
+  border-left: 1px solid rgb(139, 133, 133); /* 1px; */
 
   font-weight: bold;
   text-align: center;
