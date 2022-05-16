@@ -76,26 +76,28 @@ for (let line = 0; line < LINES; line++) {
 let playfieldHTML = '';
 for (let line = 0; line < LINES; line++) {
   for (let col = 0; col < COLUMNS; col++) {
-    playfieldHTML +=
-      "<div id='cell_" +
-      line +
-      '_' +
-      col +
-      "' " +
-      " class='cell unclicked' " +
-      " data-line='" +
-      line +
-      "' data-col='" +
-      col +
-      "' " +
-      " style='left: " +
-      (col * CELL_SIDE) +
-      'px; top: ' +
-      (line * CELL_SIDE) +
-      "px' " +
-      " onclick='window.CellClick(this);' " +
-      '>' +
-      '</div>';
+    // playfieldHTML +=
+    //   "<div id='cell_" +
+    //   line +
+    //   '_' +
+    //   col +
+    //   "' " +
+    //   " class='cell unclicked' " +
+    //   " data-line='" +
+    //   line +
+    //   "' data-col='" +
+    //   col +
+    //   "' " +
+    //   " style='left: " +
+    //   (col * CELL_SIDE) +
+    //   'px; top: ' +
+    //   (line * CELL_SIDE) +
+    //   "px' " +
+    //   " onclick='window.CellClick(this);' " +
+    //   '>' +
+    //   '</div>';
+    //playfieldHTML += `<button>${line}</button>`;
+    playfieldHTML += `<div id='cell_${line}_${col}' class='cell unclicked' data-line='${line}' data-col='${col}' style='left: ${(col * CELL_SIDE)}px; top: ${(line * CELL_SIDE)}px' onclick='window.CellClick(this);'></div>`;
   }
 }
 appDiv.innerHTML = playfieldHTML;
