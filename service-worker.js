@@ -4,46 +4,7 @@ var filesToCache = [
   //'/',
   './index.html',
   './index.js',
-  './style.css',
-  //'./manifest.json',
-  //'./script.js',
-  //'./style.css',
-  //'./service-worker.js',
-  //'./scripts',
-  //'./scripts/vendor/pace.min.js',
-  //'./styles/vendor/pace-theme-minimal.css',
-  //'./styles'
-  /*
- "./fonts",
- "./fonts/roboto",
- "./fonts/roboto/Roboto-Bold.woff",
- "./fonts/roboto/Roboto-Bold.woff2",
- "./fonts/roboto/Roboto-Light.woff",
- "./fonts/roboto/Roboto-Light.woff2",
- "./fonts/roboto/Roboto-Medium.woff",
- "./fonts/roboto/Roboto-Medium.woff2",
- "./fonts/roboto/Roboto-Regular.woff",
- "./fonts/roboto/Roboto-Regular.woff2",
- "./fonts/roboto/Roboto-Thin.woff",
- "./fonts/roboto/Roboto-Thin.woff2",
- "./images",
- "./images/icons",
- "./images/icons/icon-128x128.png",
- "./images/icons/icon-144x144.png",
- "./images/icons/icon-152x152.png",
- "./images/icons/icon-192x192.png",
- "./images/icons/icon-256x256.png",
- "./index.html",
- "./manifest.json",
- "./scripts",
- "./scripts/app.js",
- "./scripts/jquery-3.3.1.js",
- "./scripts/materialize.js",
- "./service-worker.js",
- "./styles",
- "./styles/materialize.css",
- "./styles/style.css"
- */
+  './style.css'
 ];
 
 /*
