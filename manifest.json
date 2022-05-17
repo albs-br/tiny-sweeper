@@ -6,11 +6,13 @@
         "src": "https://cdn.glitch.com/f159bcb4-6b9f-4810-94ab-437b9ad463c0%2Fandroid-chrome-192x192.png?v=1575982765160",
         "//src": "/images/icon-192x192.png",
         "type": "image/png",
+        "purpose": "maskable",
         "sizes": "192x192"
       },
       {
         "src": "https://cdn.glitch.com/f159bcb4-6b9f-4810-94ab-437b9ad463c0%2Fandroid-chrome-512x512.png?v=1575982765504",
         "type": "image/png",
+        "purpose": "maskable",
         "sizes": "512x512"
       }
     ],
