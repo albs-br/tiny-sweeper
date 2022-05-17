@@ -164,7 +164,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
         counter++;
         if(counter >= 1000) {
-            console.info('error: too much recursion'); // debug
+            // console.info('error: too much recursion'); // debug
             return;
         }
 
@@ -172,7 +172,7 @@ document.addEventListener("DOMContentLoaded", function() {
         let col = parseInt(cell.getAttribute('data-col'));
 
         try {
-            console.info(counter + ' - ' + line + ', ' + col);
+            // console.info(counter + ' - ' + line + ', ' + col);
             
             let currentMatrixPos = matrix[line][col];
             if ((currentMatrixPos.neighborhood > 0) || currentMatrixPos.hasBomb || currentMatrixPos.isClicked) return;
@@ -187,7 +187,7 @@ document.addEventListener("DOMContentLoaded", function() {
             if (col < (COLUMNS - 1) && direction != "left") EmptyCell(matrix[line][col + 1].cell, "right");
             
         } catch (error) {
-            console.info(error);
+            //console.info(error);
             //console.info(line + ', ' + col);
         }
     

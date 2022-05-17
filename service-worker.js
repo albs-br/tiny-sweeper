@@ -21,7 +21,7 @@ self.addEventListener('install', function(e) {
 
 // trying to solve the problem of never refreshing
 self.addEventListener('install', function (e) {
-    console.log('[Service Worker] Install');
+    //console.log('[Service Worker] Install');
 
     if (e.request.cache === 'only-if-cached' && e.request.mode !== 'same-origin') {
       return;
@@ -30,7 +30,7 @@ self.addEventListener('install', function (e) {
 
     e.waitUntil(
       caches.open(dataCacheName).then(function (cache) {
-          console.log('[Service Worker] Caching app shell');
+          //console.log('[Service Worker] Caching app shell');
           return cache.addAll(filesToCache);
       }).then(function(e){
         return self.skipWaiting();
@@ -72,7 +72,7 @@ self.addEventListener('activate', function(event) {
 });
 
 self.addEventListener('fetch', function(e) {
-  console.log('[Service Worker] Fetch', e.request.url);
+  //console.log('[Service Worker] Fetch', e.request.url);
   
   if (e.request.cache === 'only-if-cached' && e.request.mode !== 'same-origin') {
     return;
