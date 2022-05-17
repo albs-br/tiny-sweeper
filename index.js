@@ -81,33 +81,14 @@ document.addEventListener("DOMContentLoaded", function() {
     let playfieldHTML = '';
     for (let line = 0; line < LINES; line++) {
       for (let col = 0; col < COLUMNS; col++) {
-        // playfieldHTML +=
-        //   "<div id='cell_" +
-        //   line +
-        //   '_' +
-        //   col +
-        //   "' " +
-        //   " class='cell unclicked' " +
-        //   " data-line='" +
-        //   line +
-        //   "' data-col='" +
-        //   col +
-        //   "' " +
-        //   " style='left: " +
-        //   (col * CELL_SIDE) +
-        //   'px; top: ' +
-        //   (line * CELL_SIDE) +
-        //   "px' " +
-        //   " onclick='window.CellClick(this);' " +
-        //   '>' +
-        //   '</div>';
-        //playfieldHTML += `<button>${line}</button>`;
-        playfieldHTML += `<div id='cell_${line}_${col}' class='cell unclicked' data-line='${line}' data-col='${col}' style='left: ${(col * CELL_SIDE)}px; top: ${(line * CELL_SIDE)}px; width: ${width}px; height: ${width}px;' onclick='window.CellClick(this);'></div>`;
+        playfieldHTML += `<div id='cell_${line}_${col}' class='cell unclicked' data-line='${line}' data-col='${col}' `
+            + ` style='left: ${(col * CELL_SIDE)}px; top: ${(line * CELL_SIDE)}px; width: ${width}px; height: ${width}px;' `
+            + ` onclick='window.CellClick(this);'></div>`;
       }
     }
     appDiv.innerHTML = playfieldHTML;
     
-    // Upadte matrix to include ref for each HTML cell
+    // Update matrix to include ref for each HTML cell
     for (let line = 0; line < LINES; line++) {
       for (let col = 0; col < COLUMNS; col++) {
         matrix[line][col].cell = document.getElementById(
@@ -121,22 +102,13 @@ document.addEventListener("DOMContentLoaded", function() {
     }
     
     const CellClick = (cell) => {
-      cell.classList.remove('unclicked');
-      cell.classList.add('empty');
+      
+      counter = 0;
 
-      //TODO: set width and height based on screen width
-      let width = CELL_SIDE - 1;
-      cell.style.width = width + "px";
-      cell.style.height = width + "px";
-        //alert(width);
-    
-      // console.info(
-      //   cell.getAttribute('data-line') + ', ' + cell.getAttribute('data-col')
-      // );
-    
-      let currentMatrixPos =
-        matrix[cell.getAttribute('data-line')][cell.getAttribute('data-col')];
-    
+      let line = parseInt(cell.getAttribute('data-line'));
+      let col = parseInt(cell.getAttribute('data-col'));
+      let currentMatrixPos = matrix[line][col];
+      
       if (currentMatrixPos.hasBomb) {
         cell.innerHTML = '*';
       } else {
@@ -163,24 +135,62 @@ document.addEventListener("DOMContentLoaded", function() {
           }
         } else {
           // recursivelly find all empty cells connected to this one
-          EmptyCell(cell);
+          EmptyCell(cell, "");
         }
       }
+
+      SetCellClicked(cell);
+
     };
     window.CellClick = CellClick;
     
-    const EmptyCell = (cell) => {
-      let line = cell.getAttribute('data-line');
-      let col = cell.getAttribute('data-col');
+    const SetCellClicked = (cell) => {
+        cell.classList.remove('unclicked');
+        cell.classList.add('empty');
+  
+        // Set width and height based on screen width
+        let width = CELL_SIDE - 1;
+        cell.style.width = width + "px";
+        cell.style.height = width + "px";
+
+        let line = parseInt(cell.getAttribute('data-line'));
+        let col = parseInt(cell.getAttribute('data-col'));
+        let currentMatrixPos = matrix[line][col];
+        currentMatrixPos.isClicked = true;
+    };
+
+    let counter = 0;
+    const EmptyCell = (cell, direction) => {
+
+        counter++;
+        if(counter >= 1000) {
+            console.info('error: too much recursion'); // debug
+            return;
+        }
+
+        let line = parseInt(cell.getAttribute('data-line'));
+        let col = parseInt(cell.getAttribute('data-col'));
+
+        try {
+            console.info(counter + ' - ' + line + ', ' + col);
+            
+            let currentMatrixPos = matrix[line][col];
+            if ((currentMatrixPos.neighborhood > 0) || currentMatrixPos.hasBomb || currentMatrixPos.isClicked) return;
+            
+            //cell.click();
+            
+            SetCellClicked(cell);
+            
+            if (line > 0 && direction != "up")              EmptyCell(matrix[line - 1][col].cell, "up");
+            if (col > 0 && direction != "right")            EmptyCell(matrix[line][col - 1].cell, "left");
+            if (line < (LINES - 1) && direction != "up")    EmptyCell(matrix[line + 1][col].cell, "down");
+            if (col < (COLUMNS - 1) && direction != "left") EmptyCell(matrix[line][col + 1].cell, "right");
+            
+        } catch (error) {
+            console.info(error);
+            //console.info(line + ', ' + col);
+        }
     
-      console.info(line + ', ' + col);
-    
-      let currentMatrixPos = matrix[line][col];
-      if (currentMatrixPos.hasBomb || currentMatrixPos.isClicked) return;
-    
-      //cell.click();
-    
-      if (line > 0) EmptyCell(matrix[line - 1][col].cell); //matrix[line - 1][col].cell.click();
     };
     
     // Show all cells
