@@ -14,7 +14,7 @@
         "sizes": "512x512"
       }
     ],
-    "start_url": "/index.html",
+    "start_url": "/",
     "scope": ".",
     "display": "standalone",
     "background_color": "#C0C0C0",
