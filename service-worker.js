@@ -1,5 +1,5 @@
-var dataCacheName = 'andre-baptista';
-var cacheName = 'andre-baptista';
+var dataCacheName = 'tiny-sweeper';
+var cacheName = 'tiny-sweeper';
 var filesToCache = [
   //'/',
   './index.html',
