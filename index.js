@@ -2,26 +2,19 @@ document.addEventListener("DOMContentLoaded", function() {
 
     const appDiv = document.getElementById('app');
 
-    const BOMBS_NUMBER = 99;
+    const BOMBS_NUMBER = 10;
     const COLUMNS = 12;
-    const LINES = 24;
+    const LINES = 22;
     let cellClickedWidth;
 
     const DrawPlayfield = () => {
-        //const CELL_SIDE = 8; //%
-        let cellSide = Math.trunc(screen.width / COLUMNS); //px
-
-        // Set width and height based on screen width
-        let width = cellSide - 6;
-        cellClickedWidth = cellSide - 1;
-
         // Draw playfield
         let playfieldHTML = '';
         for (let line = 0; line < LINES; line++) {
             for (let col = 0; col < COLUMNS; col++) {
-            playfieldHTML += `<div id='cell_${line}_${col}' class='cell unclicked' data-line='${line}' data-col='${col}' `
-                + ` style='left: ${(col * cellSide)}px; top: ${(line * cellSide)}px; width: ${width}px; height: ${width}px;' `
-                + ` onclick='window.CellClick(this);'></div>`;
+                playfieldHTML += `<div id='cell_${line}_${col}' class='cell unclicked' data-line='${line}' data-col='${col}' `
+                    //+ ` style='left: ${(col * cellSide)}px; top: ${(line * cellSide)}px; width: ${width}px; height: ${width}px;' `
+                    + ` onclick='window.CellClick(this);'></div>`;
             }
         }
         appDiv.innerHTML = playfieldHTML;
@@ -29,9 +22,35 @@ document.addEventListener("DOMContentLoaded", function() {
         // Update matrix to include ref for each HTML cell
         for (let line = 0; line < LINES; line++) {
             for (let col = 0; col < COLUMNS; col++) {
-            matrix[line][col].cell = document.getElementById(
-                'cell_' + line + '_' + col
-            );
+                matrix[line][col].cell = document.getElementById('cell_' + line + '_' + col);
+            }
+        }
+
+        ResizePlayfield();
+    };
+
+    const ResizePlayfield = () => {
+        //const CELL_SIDE = 8; //%
+        let cellSide = Math.trunc(screen.width / COLUMNS); //px
+
+        // Set width and height based on screen width
+        let width = cellSide - 6;
+        cellClickedWidth = cellSide - 1;
+
+        for (let line = 0; line < LINES; line++) {
+            for (let col = 0; col < COLUMNS; col++) {
+                // set left, top, width and height
+                let cell = matrix[line][col].cell;
+                cell.style.left = (col * cellSide) + "px";
+                cell.style.top = (line * cellSide) + "px";
+                if(!matrix[line][col].isClicked) {
+                    cell.style.width = width + "px";
+                    cell.style.height = width + "px";
+                }
+                else {
+                    cell.style.width = cellClickedWidth + "px";
+                    cell.style.height = cellClickedWidth + "px";
+                }
             }
         }
     };
@@ -134,8 +153,11 @@ document.addEventListener("DOMContentLoaded", function() {
     window.CellClick = CellClick;
     
     window.addEventListener('resize', function(event) {
-        DrawPlayfield();
+        ResizePlayfield();
     }, true);
+
+    // const DrawClickedCell = () => {
+    // };
 
     const SetCellClicked = (cell) => {
         cell.classList.remove('unclicked');
