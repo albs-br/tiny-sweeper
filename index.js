@@ -152,10 +152,6 @@ document.addEventListener("DOMContentLoaded", function() {
     };
     window.CellClick = CellClick;
     
-    window.addEventListener('resize', function(event) {
-        ResizePlayfield();
-    }, true);
-
     // const DrawClickedCell = () => {
     // };
 
@@ -241,7 +237,15 @@ document.addEventListener("DOMContentLoaded", function() {
     // for (let i = 0; i < collection.length; i++) {
     //   collection[i].click();
     // }
-    
+
+    window.addEventListener('resize', function(event) {
+        ResizePlayfield();
+    }, true);
+
+    window.onbeforeunload = function() {
+        return "";
+    }
+
 });
 
 //alert("screen resolution: " + screen.width + "x" + screen.height);
