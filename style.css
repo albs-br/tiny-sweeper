@@ -2,6 +2,7 @@ html, body{
     margin: 0;
     padding: 0;
     font-size: 25px;
+    background-color: rgb(202, 196, 196);
 }
 
 h1,
@@ -10,8 +11,7 @@ h2 {
 }
   
 /* #app {
-  width: 100px;
-  background-color: aqua;
+  background-color: rgb(184, 60, 60);
 } */
 
 .cell {
@@ -42,4 +42,22 @@ h2 {
 
   font-weight: bold;
   text-align: center;
+}
+
+#btnNewGame {
+    position: absolute;
+    background-color: yellow;
+    font-weight: bold;
+    font-size: 25px;
+}
+
+#displayBombsLeft {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    background-color: black;
+    color: white;
+    text-align: center;
+    font-weight: bold;
+    font-size: 40px;
 }

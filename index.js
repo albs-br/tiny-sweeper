@@ -5,11 +5,23 @@ document.addEventListener("DOMContentLoaded", function() {
     const BOMBS_NUMBER = 10;
     const COLUMNS = 12;
     const LINES = 22;
+    
     let cellClickedWidth;
+    //let cellSide;
+    //let topPanelHeight;
+
+    // const UpdateScreenSize = () => {
+    // };
 
     const DrawPlayfield = () => {
-        // Draw playfield
+        
         let playfieldHTML = '';
+
+        // Draw top panel
+        playfieldHTML += "<button id='btnNewGame'>: )</button>";
+        playfieldHTML += "<div id='displayBombsLeft'>99</div>";
+
+        // Draw playfield
         for (let line = 0; line < LINES; line++) {
             for (let col = 0; col < COLUMNS; col++) {
                 playfieldHTML += `<div id='cell_${line}_${col}' class='cell unclicked' data-line='${line}' data-col='${col}' `
@@ -30,8 +42,10 @@ document.addEventListener("DOMContentLoaded", function() {
     };
 
     const ResizePlayfield = () => {
-        //const CELL_SIDE = 8; //%
-        let cellSide = Math.trunc(screen.width / COLUMNS); //px
+        console.info(screen.width);
+
+        let cellSide = Math.trunc(screen.width / COLUMNS);
+        let topPanelHeight = cellSide * 1.5;
 
         // Set width and height based on screen width
         let width = cellSide - 6;
@@ -42,7 +56,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 // set left, top, width and height
                 let cell = matrix[line][col].cell;
                 cell.style.left = (col * cellSide) + "px";
-                cell.style.top = (line * cellSide) + "px";
+                cell.style.top = (topPanelHeight + (line * cellSide)) + "px";
                 if(!matrix[line][col].isClicked) {
                     cell.style.width = width + "px";
                     cell.style.height = width + "px";
@@ -53,6 +67,17 @@ document.addEventListener("DOMContentLoaded", function() {
                 }
             }
         }
+
+        // Adjust top panel
+        let btnNewGame = document.getElementById("btnNewGame");
+        btnNewGame.style.width = topPanelHeight + "px";
+        btnNewGame.style.height = topPanelHeight + "px";
+        btnNewGame.style.left = ((screen.width/2) - (topPanelHeight/2)) + "px";
+
+        let displayBombsLeft = document.getElementById("displayBombsLeft");
+        displayBombsLeft.style.width = topPanelHeight + "px";
+        displayBombsLeft.style.height = topPanelHeight + "px";
+        //displayBombsLeft.style.left = ((screen.width/2) - (topPanelHeight/2)) + "px";
     };
 
     // Initialize playfield matrix
