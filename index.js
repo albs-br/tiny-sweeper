@@ -19,7 +19,8 @@ document.addEventListener("DOMContentLoaded", function() {
 
         // Draw top panel
         playfieldHTML += "<button id='btnNewGame'>: )</button>";
-        playfieldHTML += "<div id='displayBombsLeft'>99</div>";
+        playfieldHTML += "<div id='displayBombsLeft' class='display'>99</div>";
+        playfieldHTML += "<div id='displayTime' class='display'>0:00</div>";
 
         // Draw playfield
         for (let line = 0; line < LINES; line++) {
@@ -42,7 +43,7 @@ document.addEventListener("DOMContentLoaded", function() {
     };
 
     const ResizePlayfield = () => {
-        console.info(screen.width);
+        //console.info(screen.width);
 
         let cellSide = Math.trunc(screen.width / COLUMNS);
         let topPanelHeight = cellSide * 1.5;
@@ -78,6 +79,10 @@ document.addEventListener("DOMContentLoaded", function() {
         displayBombsLeft.style.width = topPanelHeight + "px";
         displayBombsLeft.style.height = topPanelHeight + "px";
         //displayBombsLeft.style.left = ((screen.width/2) - (topPanelHeight/2)) + "px";
+        let displayTime = document.getElementById("displayTime");
+        displayTime.style.width = (topPanelHeight * 1.5) + "px";
+        displayTime.style.height = topPanelHeight + "px";
+        displayTime.style.left = (screen.width - (topPanelHeight * 1.5)) + "px";
     };
 
     // Initialize playfield matrix

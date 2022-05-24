@@ -51,13 +51,21 @@ h2 {
     font-size: 25px;
 }
 
-#displayBombsLeft {
+.display {
     position: absolute;
     top: 0px;
-    left: 0px;
     background-color: black;
     color: white;
     text-align: center;
     font-weight: bold;
     font-size: 40px;
+}
+
+#displayBombsLeft {
+    left: 0px;
+}
+
+#displayTime {
+    /* left: 100px; */
+    /* right: 0px; */
 }
