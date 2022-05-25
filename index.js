@@ -7,11 +7,29 @@ document.addEventListener("DOMContentLoaded", function() {
     const LINES = 22;
     
     let cellClickedWidth;
-    //let cellSide;
-    //let topPanelHeight;
+    let bombsLeft;
+    let gameTimeStart;
 
-    // const UpdateScreenSize = () => {
-    // };
+    // DOM/ window Objects
+    let timer;
+    let displayBombsLeft;
+    let displayTime;
+
+    const StartGame = () => {
+        timer = window.setInterval(UpdateScore, 1000);
+        bombsLeft = BOMBS_NUMBER;
+        gameTimeStart = Date.now();
+        
+        DrawPlayfield();
+        UpdateScore();
+    };
+
+    const UpdateScore = () => {
+        displayBombsLeft.innerText = bombsLeft;
+        let gameTime = new Date(Date.now() - gameTimeStart)
+        let seconds = (gameTime.getSeconds() < 10) ? "0" + gameTime.getSeconds() : gameTime.getSeconds();
+        displayTime.innerText = gameTime.getMinutes() + ":" + seconds;
+    };
 
     const DrawPlayfield = () => {
         
@@ -38,6 +56,10 @@ document.addEventListener("DOMContentLoaded", function() {
                 matrix[line][col].cell = document.getElementById('cell_' + line + '_' + col);
             }
         }
+
+        // pointer/repointer vars to DOM objs
+        displayBombsLeft = document.getElementById("displayBombsLeft");
+        displayTime = document.getElementById("displayTime");
 
         ResizePlayfield();
     };
@@ -75,11 +97,9 @@ document.addEventListener("DOMContentLoaded", function() {
         btnNewGame.style.height = topPanelHeight + "px";
         btnNewGame.style.left = ((screen.width/2) - (topPanelHeight/2)) + "px";
 
-        let displayBombsLeft = document.getElementById("displayBombsLeft");
         displayBombsLeft.style.width = topPanelHeight + "px";
         displayBombsLeft.style.height = topPanelHeight + "px";
         //displayBombsLeft.style.left = ((screen.width/2) - (topPanelHeight/2)) + "px";
-        let displayTime = document.getElementById("displayTime");
         displayTime.style.width = (topPanelHeight * 1.5) + "px";
         displayTime.style.height = topPanelHeight + "px";
         displayTime.style.left = (screen.width - (topPanelHeight * 1.5)) + "px";
@@ -99,7 +119,7 @@ document.addEventListener("DOMContentLoaded", function() {
       }
     }
 
-    DrawPlayfield();
+    StartGame();
 
 
 
