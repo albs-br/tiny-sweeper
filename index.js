@@ -96,6 +96,7 @@ document.addEventListener("DOMContentLoaded", function() {
         btnNewGame.style.width = topPanelHeight + "px";
         btnNewGame.style.height = topPanelHeight + "px";
         btnNewGame.style.left = ((screen.width/2) - (topPanelHeight/2)) + "px";
+        btnNewGame.addEventListener("click", StartGame);
 
         displayBombsLeft.style.width = topPanelHeight + "px";
         displayBombsLeft.style.height = topPanelHeight + "px";
