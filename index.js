@@ -6,6 +6,7 @@ document.addEventListener("DOMContentLoaded", function() {
     const COLUMNS = 12;
     const LINES = 22;
     
+    let matrix = [];
     let cellClickedWidth;
     let bombsLeft;
     let gameTimeStart;
@@ -20,6 +21,70 @@ document.addEventListener("DOMContentLoaded", function() {
         bombsLeft = BOMBS_NUMBER;
         gameTimeStart = Date.now();
         
+        // Initialize playfield matrix
+        matrix = [];
+        for (let line = 0; line < LINES; line++) {
+            matrix[line] = [];
+            for (let col = 0; col < COLUMNS; col++) {
+                matrix[line][col] = {
+                hasBomb: false,
+                isClicked: false,
+                neighborhood: 0,
+                cell: undefined,
+                };
+            }
+        }
+
+        // Randomly put bombs
+        for (let bomb = 0; bomb < BOMBS_NUMBER; bomb++) {
+            let bombSet;
+            do {
+                bombSet = false;
+                let line = getRandomInt(LINES);
+                let col = getRandomInt(COLUMNS);
+                if (!matrix[line][col].hasBomb) {
+                    matrix[line][col].hasBomb = true;
+                    bombSet = true;
+                }
+            } while (!bombSet);
+        }
+        
+        // Calc neighborhood for each cell
+        for (let line = 0; line < LINES; line++) {
+            for (let col = 0; col < COLUMNS; col++) {
+                if (!matrix[line][col].hasBomb) {
+                    let bombs = 0;
+            
+                    if (line > 0 && col > 0) {
+                        if (matrix[line - 1][col - 1].hasBomb) bombs++;
+                    }
+                    if (line > 0) {
+                        if (matrix[line - 1][col].hasBomb) bombs++;
+                    }
+                    if (line > 0 && col < COLUMNS - 1) {
+                        if (matrix[line - 1][col + 1].hasBomb) bombs++;
+                    }
+                    if (col > 0) {
+                        if (matrix[line][col - 1].hasBomb) bombs++;
+                    }
+                    if (col < COLUMNS - 1) {
+                        if (matrix[line][col + 1].hasBomb) bombs++;
+                    }
+                    if (line < LINES - 1 && col > 0) {
+                        if (matrix[line + 1][col - 1].hasBomb) bombs++;
+                    }
+                    if (line < LINES - 1) {
+                        if (matrix[line + 1][col].hasBomb) bombs++;
+                    }
+                    if (line < LINES - 1 && col < COLUMNS - 1) {
+                        if (matrix[line + 1][col + 1].hasBomb) bombs++;
+                    }
+            
+                    matrix[line][col].neighborhood = bombs;
+                }
+            }
+        }
+
         DrawPlayfield();
         UpdateScore();
     };
@@ -105,76 +170,6 @@ document.addEventListener("DOMContentLoaded", function() {
         displayTime.style.height = topPanelHeight + "px";
         displayTime.style.left = (screen.width - (topPanelHeight * 1.5)) + "px";
     };
-
-    // Initialize playfield matrix
-    var matrix = [];
-    for (let line = 0; line < LINES; line++) {
-      matrix[line] = [];
-      for (let col = 0; col < COLUMNS; col++) {
-        matrix[line][col] = {
-          hasBomb: false,
-          isClicked: false,
-          neighborhood: 0,
-          cell: undefined,
-        };
-      }
-    }
-
-    StartGame();
-
-
-
-    
-    // Randomly put bombs
-    for (let bomb = 0; bomb < BOMBS_NUMBER; bomb++) {
-      let bombSet;
-      do {
-        bombSet = false;
-        let line = getRandomInt(LINES);
-        let col = getRandomInt(COLUMNS);
-        if (!matrix[line][col].hasBomb) {
-          matrix[line][col].hasBomb = true;
-          bombSet = true;
-        }
-      } while (!bombSet);
-    }
-    
-    // Calc neighborhood for each cell
-    for (let line = 0; line < LINES; line++) {
-      for (let col = 0; col < COLUMNS; col++) {
-        if (!matrix[line][col].hasBomb) {
-          let bombs = 0;
-    
-          if (line > 0 && col > 0) {
-            if (matrix[line - 1][col - 1].hasBomb) bombs++;
-          }
-          if (line > 0) {
-            if (matrix[line - 1][col].hasBomb) bombs++;
-          }
-          if (line > 0 && col < COLUMNS - 1) {
-            if (matrix[line - 1][col + 1].hasBomb) bombs++;
-          }
-          if (col > 0) {
-            if (matrix[line][col - 1].hasBomb) bombs++;
-          }
-          if (col < COLUMNS - 1) {
-            if (matrix[line][col + 1].hasBomb) bombs++;
-          }
-          if (line < LINES - 1 && col > 0) {
-            if (matrix[line + 1][col - 1].hasBomb) bombs++;
-          }
-          if (line < LINES - 1) {
-            if (matrix[line + 1][col].hasBomb) bombs++;
-          }
-          if (line < LINES - 1 && col < COLUMNS - 1) {
-            if (matrix[line + 1][col + 1].hasBomb) bombs++;
-          }
-    
-          matrix[line][col].neighborhood = bombs;
-        }
-      }
-    }
-
 
 
     
@@ -296,6 +291,8 @@ document.addEventListener("DOMContentLoaded", function() {
     window.onbeforeunload = function() {
         return "";
     }
+
+    StartGame();
 
 });
 
