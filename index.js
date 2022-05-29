@@ -110,7 +110,7 @@ document.addEventListener("DOMContentLoaded", function() {
             for (let col = 0; col < COLUMNS; col++) {
                 playfieldHTML += `<div id='cell_${line}_${col}' class='cell unclicked' data-line='${line}' data-col='${col}' `
                     //+ ` style='left: ${(col * cellSide)}px; top: ${(line * cellSide)}px; width: ${width}px; height: ${width}px;' `
-                    + ` onclick='window.CellClick(this);'></div>`;
+                    + ` onclick='window.CellClick(this);' onmousedown='window.CellClickDown(this, event);' onmouseup='window.CellClickUp(this, event);'></div>`;
             }
         }
         appDiv.innerHTML = playfieldHTML;
@@ -198,8 +198,17 @@ document.addEventListener("DOMContentLoaded", function() {
     };
     window.CellClick = CellClick;
     
-    // const DrawClickedCell = () => {
-    // };
+    const CellClickDown = (cell, event) => {
+        console.info('CellClickDown');
+        event.preventDefault();
+    };
+    window.CellClickDown = CellClickDown;
+
+    const CellClickUp = (cell, event) => {
+        console.info('CellClickUp');
+        event.preventDefault();
+    };
+    window.CellClickUp = CellClickUp;
 
     const SetCellClicked = (cell) => {
         cell.classList.remove('unclicked');
