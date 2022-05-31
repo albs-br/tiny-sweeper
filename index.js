@@ -10,6 +10,7 @@ document.addEventListener("DOMContentLoaded", function() {
     let cellClickedWidth;
     let bombsLeft;
     let gameTimeStart;
+    let timeBtnStartPressed;
 
     // DOM/ window Objects
     let timer;
@@ -199,14 +200,27 @@ document.addEventListener("DOMContentLoaded", function() {
     window.CellClick = CellClick;
     
     const CellClickDown = (cell, event) => {
-        console.info('CellClickDown');
+        //console.info('CellClickDown');
+        if(event.button == 0) {
+            timeBtnStartPressed = Date.now();
+        }
         event.preventDefault();
+        event.stopImmediatePropagation();
+        event.stopPropagation();
+        return false;
     };
     window.CellClickDown = CellClickDown;
 
     const CellClickUp = (cell, event) => {
-        console.info('CellClickUp');
+        //console.info('CellClickUp');
+        if(event.button == 0) {
+            let timeBtnPressed = new Date(Date.now() - timeBtnStartPressed);
+            console.info(timeBtnPressed.getMilliseconds());
+        }
         event.preventDefault();
+        event.stopImmediatePropagation();
+        event.stopPropagation();
+        return false;
     };
     window.CellClickUp = CellClickUp;
 
