@@ -102,7 +102,7 @@ document.addEventListener("DOMContentLoaded", function() {
         let playfieldHTML = '';
 
         // Draw top panel
-        playfieldHTML += "<button id='btnNewGame'>: )</button>";
+        playfieldHTML += "<button id='btnNewGame'>: P</button>";
         playfieldHTML += "<div id='displayBombsLeft' class='display'>99</div>";
         playfieldHTML += "<div id='displayTime' class='display'>0:00</div>";
 
