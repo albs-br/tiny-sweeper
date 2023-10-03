@@ -140,14 +140,31 @@ document.addEventListener("DOMContentLoaded", function() {
     };
 
     const ResizePlayfield = () => {
-        //console.info(screen.width);
 
-        let cellSide = Math.trunc(screen.width / COLUMNS);
+        // console.info(window.width);//[debug]
+        // {
+        //     const width  = window.innerWidth || document.documentElement.clientWidth || 
+        //     document.body.clientWidth;
+        //     const height = window.innerHeight|| document.documentElement.clientHeight|| 
+        //     document.body.clientHeight;
+            
+        //     console.log(width, height);
+        // }
+        
+        // const screenWidth  = window.innerWidth || document.documentElement.clientWidth || 
+        //     document.body.clientWidth;
+        const screenWidth  = screen.width;
+    
+        console.info(screenWidth);//[debug]
+
+        let cellSide = Math.trunc(screenWidth / COLUMNS);
         let topPanelHeight = cellSide * 1.5;
 
         // Set width and height based on screen width
         let width = cellSide - 6;
         cellClickedWidth = cellSide - 1;
+
+        // console.info(cellClickedWidth);//[debug]
 
         for (let line = 0; line < LINES; line++) {
             for (let col = 0; col < COLUMNS; col++) {
@@ -170,15 +187,15 @@ document.addEventListener("DOMContentLoaded", function() {
         let btnNewGame = document.getElementById("btnNewGame");
         btnNewGame.style.width = topPanelHeight + "px";
         btnNewGame.style.height = topPanelHeight + "px";
-        btnNewGame.style.left = ((screen.width/2) - (topPanelHeight/2)) + "px";
+        btnNewGame.style.left = ((screenWidth/2) - (topPanelHeight/2)) + "px";
         btnNewGame.addEventListener("click", StartGame);
 
         displayBombsLeft.style.width = topPanelHeight + "px";
         displayBombsLeft.style.height = topPanelHeight + "px";
-        //displayBombsLeft.style.left = ((screen.width/2) - (topPanelHeight/2)) + "px";
+        //displayBombsLeft.style.left = ((screenWidth/2) - (topPanelHeight/2)) + "px";
         displayTime.style.width = (topPanelHeight * 2) + "px";
         displayTime.style.height = topPanelHeight + "px";
-        //displayTime.style.left = (screen.width - (topPanelHeight * 1.5)) + "px";
+        //displayTime.style.left = (screenWidth - (topPanelHeight * 1.5)) + "px";
     };
 
 
@@ -304,7 +321,7 @@ document.addEventListener("DOMContentLoaded", function() {
             
             SetCellClicked(cell);
             
-            if (line > 0 && direction != "down")              EmptyCell(matrix[line - 1][col].cell, "up");
+            if (line > 0 && direction != "down")            EmptyCell(matrix[line - 1][col].cell, "up");
             if (col > 0 && direction != "right")            EmptyCell(matrix[line][col - 1].cell, "left");
             if (line < (LINES - 1) && direction != "up")    EmptyCell(matrix[line + 1][col].cell, "down");
             if (col < (COLUMNS - 1) && direction != "left") EmptyCell(matrix[line][col + 1].cell, "right");
@@ -322,17 +339,28 @@ document.addEventListener("DOMContentLoaded", function() {
     //   collection[i].click();
     // }
 
+    screen.orientation.lock("portrait");
+
     window.addEventListener('resize', function(event) {
-        ResizePlayfield();
-    }, true);
+        // console.info('window resize');//[debug]
+
+        window.setTimeout(ResizePlayfield, 100);
+    }, false);
 
     window.onbeforeunload = function() {
         return "";
     }
 
+    screen.orientation.addEventListener("change", (event) => {
+        // console.info('screen.orientation change');//[debug]
+
+        // const type = event.target.type;
+        // const angle = event.target.angle;
+        // console.log(`ScreenOrientation change: ${type}, ${angle} degrees.`);
+
+        window.setTimeout(ResizePlayfield, 100);
+    });
+
     StartGame();
 
 });
-
-//alert("screen resolution: " + screen.width + "x" + screen.height);
-
