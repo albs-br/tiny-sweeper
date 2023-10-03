@@ -34,6 +34,20 @@ h2 {
   height: 6%; */
 }
 
+.bomb {
+  background-color: red;
+  background-size: cover; 
+  background-image: url("bomb.png");
+}
+
+.red {
+  background-color: red;
+}
+
+.gray {
+  background-color: rgb(226, 216, 216);
+}
+
 .unclicked {
   background-color: rgb(226, 216, 216);
 

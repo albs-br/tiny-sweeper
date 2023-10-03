@@ -155,7 +155,7 @@ document.addEventListener("DOMContentLoaded", function() {
         //     document.body.clientWidth;
         const screenWidth  = screen.width;
     
-        console.info(screenWidth);//[debug]
+        // console.info(screenWidth);//[debug]
 
         let cellSide = Math.trunc(screenWidth / COLUMNS);
         let topPanelHeight = cellSide * 1.5;
@@ -206,21 +206,34 @@ document.addEventListener("DOMContentLoaded", function() {
     
     const CellClick = (cell) => {
       
-      counter = 0;
+        counter = 0;
 
-      let line = parseInt(cell.getAttribute('data-line'));
-      let col = parseInt(cell.getAttribute('data-col'));
-      let currentMatrixPos = matrix[line][col];
+        let line = parseInt(cell.getAttribute('data-line'));
+        let col = parseInt(cell.getAttribute('data-col'));
+        let currentMatrixPos = matrix[line][col];
       
-      if (currentMatrixPos.hasBomb) {
-        cell.innerHTML = '*';
-      } 
-      else {
+        if (currentMatrixPos.hasBomb) {
+            // cell.innerHTML = '*';
+            cell.classList.add('bomb');
+            cell.classList.add('red');
+
+        //     //TODO:
+        //     //loop through all playfield to show all other bombs
+        //     cell.classList.add('bomb');
+        //     cell.classList.add('gray');
+        //     cell.classList.remove('unclicked');
+        //     cell.classList.add('empty');
+     
+        //     // Set width and height based on screen width
+        //     cell.style.width = cellClickedWidth + "px";
+        //     cell.style.height = cellClickedWidth + "px";
+        } 
+        else {
             // recursivelly find all empty cells connected to this one
             EmptyCell(cell, "");
-      }
+        }
 
-      SetCellClicked(cell);
+        SetCellClicked(cell);
 
     };
     window.CellClick = CellClick;
@@ -339,7 +352,13 @@ document.addEventListener("DOMContentLoaded", function() {
     //   collection[i].click();
     // }
 
-    screen.orientation.lock("portrait");
+    screen.orientation
+        .lock("portrait")
+        .then(() => {
+        })
+        .catch((error) => {
+            //console.error(error);
+        });
 
     window.addEventListener('resize', function(event) {
         // console.info('window resize');//[debug]
@@ -347,9 +366,11 @@ document.addEventListener("DOMContentLoaded", function() {
         window.setTimeout(ResizePlayfield, 100);
     }, false);
 
-    window.onbeforeunload = function() {
-        return "";
-    }
+    window.addEventListener("beforeunload", null);
+    
+    // window.onbeforeunload = function() {
+    //     return "";
+    // }
 
     screen.orientation.addEventListener("change", (event) => {
         // console.info('screen.orientation change');//[debug]

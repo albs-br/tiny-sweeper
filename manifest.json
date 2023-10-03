@@ -1,6 +1,6 @@
 {
     "name": "Tiny Sweeper",
-    "short_name": "tiny-sweeper",
+    "short_name": "Tiny Sweeper",
     "description": "Smallest possible Mine Sweeper clone", 
     "icons": [
       {
