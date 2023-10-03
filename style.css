@@ -1,7 +1,10 @@
 html, body{
     margin: 0;
     padding: 0;
+    
+    font-family: 'Courier New', Courier, monospace;
     font-size: 25px;
+    
     background-color: rgb(202, 196, 196);
 }
 
@@ -10,9 +13,17 @@ h2 {
   font-family: 'Courier New', Courier, monospace;
 }
   
-/* #app {
-  background-color: rgb(184, 60, 60);
-} */
+#app {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  width: 100%;
+  height: 100%;
+
+  /* border: 1px solid red; */
+
+  /* background-color: rgb(184, 60, 60); */
+}
 
 .cell {
   position: absolute;
@@ -46,26 +57,35 @@ h2 {
 
 #btnNewGame {
     position: absolute;
+    
     background-color: yellow;
     font-weight: bold;
     font-size: 25px;
 }
 
 .display {
-    position: absolute;
-    top: 0px;
-    background-color: black;
-    color: white;
-    text-align: center;
-    font-weight: bold;
-    font-size: 40px;
+  position: absolute;
+  top: 0px;
+  
+  background-color: black;
+  color: white;
+  text-align: center;
+  font-weight: bold;
+  font-size: 40px;
 }
 
 #displayBombsLeft {
-    left: 0px;
+  left: 0px;
+  top: 0px;
+
+  padding-left: 10px;
+  padding-right: 10px;
 }
 
 #displayTime {
-    /* left: 100px; */
-    /* right: 0px; */
+  right: 0px;
+  top: 0px;
+
+  padding-left: 10px;
+  padding-right: 10px;
 }

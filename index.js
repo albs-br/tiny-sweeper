@@ -9,6 +9,7 @@ document.addEventListener("DOMContentLoaded", function() {
     let matrix = [];
     let cellClickedWidth;
     let bombsLeft;
+    let gameStarted;
     let gameTimeStart;
     let timeBtnStartPressed;
 
@@ -18,9 +19,11 @@ document.addEventListener("DOMContentLoaded", function() {
     let displayTime;
 
     const StartGame = () => {
+        gameStarted = false;
+
         timer = window.setInterval(UpdateScore, 1000);
         bombsLeft = BOMBS_NUMBER;
-        gameTimeStart = Date.now();
+        // gameTimeStart = Date.now();
         
         // Initialize playfield matrix
         matrix = [];
@@ -92,9 +95,15 @@ document.addEventListener("DOMContentLoaded", function() {
 
     const UpdateScore = () => {
         displayBombsLeft.innerText = bombsLeft;
-        let gameTime = new Date(Date.now() - gameTimeStart)
-        let seconds = (gameTime.getSeconds() < 10) ? "0" + gameTime.getSeconds() : gameTime.getSeconds();
-        displayTime.innerText = gameTime.getMinutes() + ":" + seconds;
+        
+        if(gameStarted) {
+            let gameTime = new Date(Date.now() - gameTimeStart)
+            let seconds = (gameTime.getSeconds() < 10) ? "0" + gameTime.getSeconds() : gameTime.getSeconds();
+            displayTime.innerText = gameTime.getMinutes() + ":" + seconds;
+        }
+        else {
+            displayTime.innerText = "0:00";
+        }
     };
 
     const DrawPlayfield = () => {
@@ -102,9 +111,9 @@ document.addEventListener("DOMContentLoaded", function() {
         let playfieldHTML = '';
 
         // Draw top panel
-        playfieldHTML += "<button id='btnNewGame'>: P</button>";
-        playfieldHTML += "<div id='displayBombsLeft' class='display'>99</div>";
-        playfieldHTML += "<div id='displayTime' class='display'>0:00</div>";
+        playfieldHTML += "<button id='btnNewGame'>:P</button>";
+        playfieldHTML += "<div id='displayBombsLeft' class='display'></div>";
+        playfieldHTML += "<div id='displayTime' class='display'></div>";
 
         // Draw playfield
         for (let line = 0; line < LINES; line++) {
@@ -167,9 +176,9 @@ document.addEventListener("DOMContentLoaded", function() {
         displayBombsLeft.style.width = topPanelHeight + "px";
         displayBombsLeft.style.height = topPanelHeight + "px";
         //displayBombsLeft.style.left = ((screen.width/2) - (topPanelHeight/2)) + "px";
-        displayTime.style.width = (topPanelHeight * 1.5) + "px";
+        displayTime.style.width = (topPanelHeight * 2) + "px";
         displayTime.style.height = topPanelHeight + "px";
-        displayTime.style.left = (screen.width - (topPanelHeight * 1.5)) + "px";
+        //displayTime.style.left = (screen.width - (topPanelHeight * 1.5)) + "px";
     };
 
 
@@ -225,6 +234,12 @@ document.addEventListener("DOMContentLoaded", function() {
     window.CellClickUp = CellClickUp;
 
     const SetCellClicked = (cell) => {
+
+        if(!gameStarted) {
+            gameStarted = true;
+            gameTimeStart = Date.now();
+        }
+
         cell.classList.remove('unclicked');
         cell.classList.add('empty');
   
