@@ -305,7 +305,7 @@ document.addEventListener("DOMContentLoaded", function() {
         //console.info('CellClickUp');
         if(event.button == 0) {
             let timeBtnPressed = new Date(Date.now() - timeBtnStartPressed);
-            console.info(timeBtnPressed.getMilliseconds());
+            //console.info(timeBtnPressed.getMilliseconds()); //[debug]
         }
         event.preventDefault();
         event.stopImmediatePropagation();
@@ -391,7 +391,7 @@ document.addEventListener("DOMContentLoaded", function() {
             if (col < (COLUMNS - 1) && direction != "left") EmptyCell(matrix[line][col + 1].cell, "right");
             
         } catch (error) {
-            //console.info(error);
+            //console.info(error); //[debug]
             //console.info(line + ', ' + col);
         }
     
@@ -408,7 +408,7 @@ document.addEventListener("DOMContentLoaded", function() {
         .then(() => {
         })
         .catch((error) => {
-            //console.error(error);
+            //console.error(error); //[debug]
         });
 
     window.addEventListener('resize', function(event) {
@@ -428,7 +428,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
         // const type = event.target.type;
         // const angle = event.target.angle;
-        // console.log(`ScreenOrientation change: ${type}, ${angle} degrees.`);
+        // console.log(`ScreenOrientation change: ${type}, ${angle} degrees.`); //[debug]
 
         window.setTimeout(ResizePlayfield, 100);
     });

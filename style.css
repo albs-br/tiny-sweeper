@@ -6,6 +6,14 @@ html, body{
     font-size: 25px;
     
     background-color: rgb(202, 196, 196);
+
+    /* prevent text selection */
+    -webkit-user-select: none; /* Safari */
+    -ms-user-select: none; /* IE 10 and IE 11 */
+    user-select: none; /* Standard syntax */
+
+    /* prevent refresh when pulling down page on mobile */
+    overscroll-behavior-y: contain;
 }
 
 h1,
