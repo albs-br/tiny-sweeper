@@ -28,6 +28,8 @@ h2 {
 .cell {
   position: absolute;
 
+  background-color: rgb(202, 196, 196);
+
   /* width: 16px;
   height: 16px; */
   /* width: 6%;
@@ -35,7 +37,6 @@ h2 {
 }
 
 .bomb {
-  background-color: red;
   background-size: cover; 
   background-image: url("bomb.png");
 }
@@ -44,9 +45,9 @@ h2 {
   background-color: red;
 }
 
-.gray {
+/* .gray {
   background-color: rgb(226, 216, 216);
-}
+} */
 
 .unclicked {
   background-color: rgb(226, 216, 216);
@@ -61,7 +62,7 @@ h2 {
   /* width: 19px;
   height: 19px; */
 
-  background-color: rgb(202, 196, 196);
+  /* background-color: rgb(202, 196, 196); */
   border-top: 1px solid rgb(139, 133, 133); /* 1px; */
   border-left: 1px solid rgb(139, 133, 133); /* 1px; */
 
@@ -75,6 +76,11 @@ h2 {
     background-color: yellow;
     font-weight: bold;
     font-size: 25px;
+}
+
+#btnNewGame.button_red {
+  color: white;
+  background-color: red;
 }
 
 .display {

@@ -6,6 +6,7 @@ document.addEventListener("DOMContentLoaded", function() {
     const COLUMNS = 12;
     const LINES = 22;
     
+    let gameOver;
     let matrix = [];
     let cellClickedWidth;
     let bombsLeft;
@@ -20,6 +21,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
     const StartGame = () => {
         gameStarted = false;
+        gameOver = false;
 
         timer = window.setInterval(UpdateScore, 1000);
         bombsLeft = BOMBS_NUMBER;
@@ -89,17 +91,33 @@ document.addEventListener("DOMContentLoaded", function() {
             }
         }
 
+
+
         DrawPlayfield();
         UpdateScore();
+
+
+        let btnNewGame = document.getElementById("btnNewGame");
+        btnNewGame.innerHTML = ":)"
+        btnNewGame.classList.remove("button_red");
     };
 
     const UpdateScore = () => {
+        if(gameOver) return;
+
         displayBombsLeft.innerText = bombsLeft;
         
         if(gameStarted) {
             let gameTime = new Date(Date.now() - gameTimeStart)
-            let seconds = (gameTime.getSeconds() < 10) ? "0" + gameTime.getSeconds() : gameTime.getSeconds();
-            displayTime.innerText = gameTime.getMinutes() + ":" + seconds;
+
+            if(gameTime.getMinutes() > 9) {
+                // Time's up
+                gameOver = true;
+            }
+            else {
+                let seconds = (gameTime.getSeconds() < 10) ? "0" + gameTime.getSeconds() : gameTime.getSeconds();
+                displayTime.innerText = gameTime.getMinutes() + ":" + seconds;
+            }
         }
         else {
             displayTime.innerText = "0:00";
@@ -111,7 +129,7 @@ document.addEventListener("DOMContentLoaded", function() {
         let playfieldHTML = '';
 
         // Draw top panel
-        playfieldHTML += "<button id='btnNewGame'>:P</button>";
+        playfieldHTML += "<button id='btnNewGame'></button>";
         playfieldHTML += "<div id='displayBombsLeft' class='display'></div>";
         playfieldHTML += "<div id='displayTime' class='display'></div>";
 
@@ -206,6 +224,8 @@ document.addEventListener("DOMContentLoaded", function() {
     
     const CellClick = (cell) => {
       
+        if(gameOver) return;
+
         counter = 0;
 
         let line = parseInt(cell.getAttribute('data-line'));
@@ -213,20 +233,45 @@ document.addEventListener("DOMContentLoaded", function() {
         let currentMatrixPos = matrix[line][col];
       
         if (currentMatrixPos.hasBomb) {
+
+            // ----------- Game over
+
+            gameOver = true;
+            
             // cell.innerHTML = '*';
             cell.classList.add('bomb');
             cell.classList.add('red');
 
-        //     //TODO:
-        //     //loop through all playfield to show all other bombs
-        //     cell.classList.add('bomb');
-        //     cell.classList.add('gray');
-        //     cell.classList.remove('unclicked');
-        //     cell.classList.add('empty');
-     
-        //     // Set width and height based on screen width
-        //     cell.style.width = cellClickedWidth + "px";
-        //     cell.style.height = cellClickedWidth + "px";
+
+
+            //loop through all playfield to show all other bombs
+            for (let lineLoop = 0; lineLoop < LINES; lineLoop++) {
+                for (let colLoop = 0; colLoop < COLUMNS; colLoop++) {
+                    if(!(line == lineLoop && col == colLoop)) {
+                        let matrixPosLoop = matrix[lineLoop][colLoop];
+                        //console.info(matrixPosLoop.hasBomb);//[debug]
+                        if(matrixPosLoop.hasBomb) {
+                            let cellLoop = matrix[lineLoop][colLoop].cell;
+                            cellLoop.classList.add('bomb');
+                            //cellLoop.classList.add('gray');
+                            cellLoop.classList.remove('unclicked');
+                            cellLoop.classList.add('empty');
+
+                            cellLoop.style.width = cellClickedWidth + "px";
+                            cellLoop.style.height = cellClickedWidth + "px";
+                        }
+                    }
+                }
+            }
+
+            // Set cell width and height based on screen width
+            cell.style.width = cellClickedWidth + "px";
+            cell.style.height = cellClickedWidth + "px";
+
+
+            let btnNewGame = document.getElementById("btnNewGame");
+            btnNewGame.innerHTML = ":P"
+            btnNewGame.classList.add("button_red");
         } 
         else {
             // recursivelly find all empty cells connected to this one
@@ -239,6 +284,9 @@ document.addEventListener("DOMContentLoaded", function() {
     window.CellClick = CellClick;
     
     const CellClickDown = (cell, event) => {
+
+        if(gameOver) return;
+
         //console.info('CellClickDown');
         if(event.button == 0) {
             timeBtnStartPressed = Date.now();
@@ -251,6 +299,9 @@ document.addEventListener("DOMContentLoaded", function() {
     window.CellClickDown = CellClickDown;
 
     const CellClickUp = (cell, event) => {
+
+        if(gameOver) return;
+
         //console.info('CellClickUp');
         if(event.button == 0) {
             let timeBtnPressed = new Date(Date.now() - timeBtnStartPressed);
