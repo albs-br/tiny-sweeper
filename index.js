@@ -14,7 +14,7 @@ document.addEventListener("DOMContentLoaded", function() {
     let gameTimeStart;
     let timeBtnStartPressed;
 
-    // DOM/ window Objects
+    // DOM / window Objects
     let timer;
     let displayBombsLeft;
     let displayTime;
@@ -25,7 +25,6 @@ document.addEventListener("DOMContentLoaded", function() {
 
         timer = window.setInterval(UpdateScore, 1000);
         bombsLeft = BOMBS_NUMBER;
-        // gameTimeStart = Date.now();
         
         // Initialize playfield matrix
         matrix = [];
@@ -61,29 +60,38 @@ document.addEventListener("DOMContentLoaded", function() {
                 if (!matrix[line][col].hasBomb) {
                     let bombs = 0;
             
-                    if (line > 0 && col > 0) {
-                        if (matrix[line - 1][col - 1].hasBomb) bombs++;
-                    }
+                    // check 3 cells on line above
                     if (line > 0) {
+                        if (col > 0) {
+                            if (matrix[line - 1][col - 1].hasBomb) bombs++;
+                        }
+
                         if (matrix[line - 1][col].hasBomb) bombs++;
+
+                        if (col < COLUMNS - 1) {
+                            if (matrix[line - 1][col + 1].hasBomb) bombs++;
+                        }
                     }
-                    if (line > 0 && col < COLUMNS - 1) {
-                        if (matrix[line - 1][col + 1].hasBomb) bombs++;
-                    }
+
+                    // check cells left and right
                     if (col > 0) {
                         if (matrix[line][col - 1].hasBomb) bombs++;
                     }
                     if (col < COLUMNS - 1) {
                         if (matrix[line][col + 1].hasBomb) bombs++;
                     }
-                    if (line < LINES - 1 && col > 0) {
-                        if (matrix[line + 1][col - 1].hasBomb) bombs++;
-                    }
+                    
+                    // check 3 cells on line below
                     if (line < LINES - 1) {
+                        if (col > 0) {
+                            if (matrix[line + 1][col - 1].hasBomb) bombs++;
+                        }
+                        
                         if (matrix[line + 1][col].hasBomb) bombs++;
-                    }
-                    if (line < LINES - 1 && col < COLUMNS - 1) {
-                        if (matrix[line + 1][col + 1].hasBomb) bombs++;
+                        
+                        if (col < COLUMNS - 1) {
+                            if (matrix[line + 1][col + 1].hasBomb) bombs++;
+                        }
                     }
             
                     matrix[line][col].neighborhood = bombs;
@@ -137,7 +145,6 @@ document.addEventListener("DOMContentLoaded", function() {
         for (let line = 0; line < LINES; line++) {
             for (let col = 0; col < COLUMNS; col++) {
                 playfieldHTML += `<div id='cell_${line}_${col}' class='cell unclicked' data-line='${line}' data-col='${col}' `
-                    //+ ` style='left: ${(col * cellSide)}px; top: ${(line * cellSide)}px; width: ${width}px; height: ${width}px;' `
                     + ` onclick='window.CellClick(this);' onmousedown='window.CellClickDown(this, event);' onmouseup='window.CellClickUp(this, event);'></div>`;
             }
         }
@@ -238,7 +245,6 @@ document.addEventListener("DOMContentLoaded", function() {
 
             gameOver = true;
             
-            // cell.innerHTML = '*';
             cell.classList.add('bomb');
             cell.classList.add('red');
 
@@ -419,10 +425,6 @@ document.addEventListener("DOMContentLoaded", function() {
 
     window.addEventListener("beforeunload", null);
     
-    // window.onbeforeunload = function() {
-    //     return "";
-    // }
-
     screen.orientation.addEventListener("change", (event) => {
         // console.info('screen.orientation change');//[debug]
 

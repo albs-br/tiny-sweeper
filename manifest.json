@@ -18,6 +18,7 @@
       }
     ],
     "start_url": "/tiny-sweeper/",
+    "lang": "en-US",
     "display": "standalone",
     "background_color": "#C0C0C0",
     "theme_color": "#C0C0C0"
