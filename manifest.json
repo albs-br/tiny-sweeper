@@ -1,11 +1,10 @@
 {
     "name": "Tiny Sweeper",
-    "short_name": "Tiny Sweeper v.0.13.6",
+    "short_name": "Tiny Sweeper v.0.13.8",
     "description": "Smallest possible Mine Sweeper clone", 
     "icons": [
       {
         "src": "https://albs-br.github.io/tiny-sweeper/AppImages/ios/192.png",
-        "//src": "/images/icon-192x192.png",
         "type": "image/png",
         "purpose": "any maskable",
         "sizes": "192x192"

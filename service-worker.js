@@ -1,3 +1,5 @@
+const version = "v.0.13.8";
+
 var dataCacheName = 'tiny-sweeper';
 var cacheName = 'tiny-sweeper';
 var filesToCache = [
