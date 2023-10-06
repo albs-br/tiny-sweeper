@@ -91,6 +91,37 @@ h2 {
   background-color: red;
 }
 
+#btnFlag {
+  position: absolute;
+  background-size: cover; 
+  background-image: url("flag.png");
+
+  background-color: rgb(226, 216, 216);
+
+  border-top: 3px solid rgb(255, 255, 255); /* 2px; */
+  border-left: 3px solid  rgb(255, 255, 255); /* 2px; */
+  border-right: 3px solid rgb(65, 61, 61); /* 2px; */
+  border-bottom: 3px solid rgb(65, 61, 61); /* 2px; */
+}
+
+#btnFlag.unclicked {
+  background-color: rgb(226, 216, 216);
+
+  border-top: 3px solid rgb(255, 255, 255); /* 2px; */
+  border-left: 3px solid  rgb(255, 255, 255); /* 2px; */
+  border-right: 3px solid rgb(65, 61, 61); /* 2px; */
+  border-bottom: 3px solid rgb(65, 61, 61); /* 2px; */
+}
+
+#btnFlag.clicked {
+  background-color: rgb(128, 128, 128);
+
+  border-top: 5px solid  rgb(65, 61, 61); /* 2px; */
+  border-left: 5px solid rgb(65, 61, 61); /* 2px; */
+  border-right: 0px solid;
+  border-bottom: 0px solid;
+}
+
 .display {
   position: absolute;
   top: 0px;

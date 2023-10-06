@@ -1,4 +1,4 @@
-const version = "v.0.13.8";
+const version = "v.0.14.0";
 
 var dataCacheName = 'tiny-sweeper';
 var cacheName = 'tiny-sweeper';

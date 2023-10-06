@@ -13,6 +13,7 @@ document.addEventListener("DOMContentLoaded", function() {
     let gameStarted;
     let gameTimeStart;
     let timeBtnStartPressed;
+    let btnFlagClicked;
 
     // DOM / window Objects
     let timer;
@@ -108,6 +109,8 @@ document.addEventListener("DOMContentLoaded", function() {
         let btnNewGame = document.getElementById("btnNewGame");
         btnNewGame.innerHTML = ":)"
         btnNewGame.classList.remove("button_red");
+
+        SetBtnFlagUnclicked();
     };
 
     const UpdateScore = () => {
@@ -138,6 +141,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
         // Draw top panel
         playfieldHTML += "<button id='btnNewGame'></button>";
+        playfieldHTML += "<button id='btnFlag'></button>";
         playfieldHTML += "<div id='displayBombsLeft' class='display'></div>";
         playfieldHTML += "<div id='displayTime' class='display'></div>";
 
@@ -214,6 +218,13 @@ document.addEventListener("DOMContentLoaded", function() {
         btnNewGame.style.height = topPanelHeight + "px";
         btnNewGame.style.left = ((screenWidth/2) - (topPanelHeight/2)) + "px";
         btnNewGame.addEventListener("click", StartGame);
+
+        let btnFlag = document.getElementById("btnFlag");
+        btnFlag.style.width = (topPanelHeight * 0.75) + "px";
+        btnFlag.style.height = (topPanelHeight * 0.75) + "px";
+        btnFlag.style.top = (topPanelHeight * 0.12) + "px";
+        btnFlag.style.left = ((screenWidth/2) - (topPanelHeight/2) - (((screenWidth/2) - (topPanelHeight/2))/2) + topPanelHeight*0.37) + "px";
+        btnFlag.addEventListener("click", BtnFlagClick);
 
         displayBombsLeft.style.width = topPanelHeight + "px";
         displayBombsLeft.style.height = topPanelHeight + "px";
@@ -403,6 +414,29 @@ document.addEventListener("DOMContentLoaded", function() {
     
     };
     
+    const BtnFlagClick = () => {
+        if(btnFlagClicked) {
+            SetBtnFlagUnclicked();
+        }
+        else {
+            SetBtnFlagClicked();
+        }
+    }
+
+    const SetBtnFlagUnclicked = () => {
+        btnFlagClicked = false;
+
+        let btnFlag = document.getElementById("btnFlag");
+        btnFlag.classList.remove("clicked");
+        btnFlag.classList.add("unclicked");
+    }
+
+    const SetBtnFlagClicked = () => {
+        btnFlagClicked = true;
+        btnFlag.classList.remove("unclicked");
+        btnFlag.classList.add("clicked");
+    }
+
     // Show all cells
     // const collection = document.getElementsByClassName('cell');
     // for (let i = 0; i < collection.length; i++) {
