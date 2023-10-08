@@ -24,7 +24,7 @@ document.addEventListener("DOMContentLoaded", function() {
         gameStarted = false;
         gameOver = false;
 
-        timer = window.setInterval(UpdateScore, 1000);
+        timer = window.setInterval(UpdateScore, 100);
         bombsLeft = BOMBS_NUMBER;
         
         // Initialize playfield matrix
@@ -35,6 +35,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 matrix[line][col] = {
                 hasBomb: false,
                 isClicked: false,
+                isFlagged: false,
                 neighborhood: 0,
                 cell: undefined,
                 };
@@ -249,13 +250,37 @@ document.addEventListener("DOMContentLoaded", function() {
         let line = parseInt(cell.getAttribute('data-line'));
         let col = parseInt(cell.getAttribute('data-col'));
         let currentMatrixPos = matrix[line][col];
-      
+
+        if(!btnFlagClicked && currentMatrixPos.isFlagged) return;
+        
+        if(btnFlagClicked && !currentMatrixPos.isClicked) {
+            if(!gameStarted) {
+                gameStarted = true;
+                gameTimeStart = Date.now();
+            }
+    
+            if(!currentMatrixPos.isFlagged) {
+                currentMatrixPos.isFlagged = true;
+                cell.classList.add('flag');
+                bombsLeft--;
+                return;
+            }
+            else {
+                currentMatrixPos.isFlagged = false;
+                cell.classList.remove('flag');
+                bombsLeft++;
+                return;
+            }
+
+        }
+        
         if (currentMatrixPos.hasBomb) {
 
             // ----------- Game over
 
             gameOver = true;
             
+            cell.classList.remove('flag');
             cell.classList.add('bomb');
             cell.classList.add('red');
 
@@ -338,6 +363,8 @@ document.addEventListener("DOMContentLoaded", function() {
             gameTimeStart = Date.now();
         }
 
+        cell.classList.remove('flag');
+        
         cell.classList.remove('unclicked');
         cell.classList.add('empty');
   
@@ -349,6 +376,11 @@ document.addEventListener("DOMContentLoaded", function() {
         let col = parseInt(cell.getAttribute('data-col'));
         let currentMatrixPos = matrix[line][col];
         currentMatrixPos.isClicked = true;
+        
+        if(currentMatrixPos.isFlagged) {
+            currentMatrixPos.isFlagged = false;
+            bombsLeft++;
+        }
 
         if (currentMatrixPos.neighborhood > 0) {
             cell.innerHTML = currentMatrixPos.neighborhood;
@@ -443,6 +475,9 @@ document.addEventListener("DOMContentLoaded", function() {
     //   collection[i].click();
     // }
 
+    
+    window.addEventListener('contextmenu', (event) => event.preventDefault());
+
     screen.orientation
         .lock("portrait")
         .then(() => {
@@ -451,7 +486,7 @@ document.addEventListener("DOMContentLoaded", function() {
             //console.error(error); //[debug]
         });
 
-    window.addEventListener('resize', function(event) {
+    window.addEventListener('resize', (event) => {
         // console.info('window resize');//[debug]
 
         window.setTimeout(ResizePlayfield, 100);
