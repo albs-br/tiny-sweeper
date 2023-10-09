@@ -21,6 +21,11 @@ document.addEventListener("DOMContentLoaded", function() {
     let displayTime;
 
     const StartGame = () => {
+
+        if(gameStarted) {
+            if(!window.confirm("New game?")) return;
+        }
+
         gameStarted = false;
         gameOver = false;
 
