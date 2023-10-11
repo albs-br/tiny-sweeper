@@ -14,6 +14,7 @@ document.addEventListener("DOMContentLoaded", function() {
     let gameTimeStart;
     let timeBtnStartPressed;
     let btnFlagClicked;
+    let playerWon;
 
     // DOM / window Objects
     let timer;
@@ -28,6 +29,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
         gameStarted = false;
         gameOver = false;
+        playerWon = false;
 
         timer = window.setInterval(UpdateScore, 100);
         bombsLeft = BOMBS_NUMBER;
@@ -113,8 +115,10 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
         let btnNewGame = document.getElementById("btnNewGame");
+        
         btnNewGame.innerHTML = ":)"
         btnNewGame.classList.remove("button_red");
+        btnNewGame.classList.remove("button_green");
 
         SetBtnFlagUnclicked();
     };
@@ -257,7 +261,10 @@ document.addEventListener("DOMContentLoaded", function() {
         let currentMatrixPos = matrix[line][col];
 
         if(!btnFlagClicked && currentMatrixPos.isFlagged) return;
+
+        if(btnFlagClicked && bombsLeft <= 0) return;
         
+        // Set flag logic
         if(btnFlagClicked && !currentMatrixPos.isClicked) {
             if(!gameStarted) {
                 gameStarted = true;
@@ -268,12 +275,14 @@ document.addEventListener("DOMContentLoaded", function() {
                 currentMatrixPos.isFlagged = true;
                 cell.classList.add('flag');
                 bombsLeft--;
+                CheckIfGameEnded();
                 return;
             }
             else {
                 currentMatrixPos.isFlagged = false;
                 cell.classList.remove('flag');
                 bombsLeft++;
+                CheckIfGameEnded();
                 return;
             }
 
@@ -319,6 +328,7 @@ document.addEventListener("DOMContentLoaded", function() {
             let btnNewGame = document.getElementById("btnNewGame");
             btnNewGame.innerHTML = ":P"
             btnNewGame.classList.add("button_red");
+            btnNewGame.classList.remove("button_green");
         } 
         else {
             // recursivelly find all empty cells connected to this one
@@ -326,6 +336,8 @@ document.addEventListener("DOMContentLoaded", function() {
         }
 
         SetCellClicked(cell);
+
+        CheckIfGameEnded();
 
     };
     window.CellClick = CellClick;
@@ -480,6 +492,30 @@ document.addEventListener("DOMContentLoaded", function() {
     //   collection[i].click();
     // }
 
+    const CheckIfGameEnded = () => {
+        let hasSomeCellUnclicked = false;
+        for (let line = 0; (line < LINES) && !hasSomeCellUnclicked; line++) {
+            for (let col = 0; (col < COLUMNS) && !hasSomeCellUnclicked; col++) {
+                let cell = matrix[line][col].cell;
+                if(!matrix[line][col].isClicked && !matrix[line][col].isFlagged) {
+                    hasSomeCellUnclicked = true;
+                }
+            }
+        }
+
+        if(!hasSomeCellUnclicked) { 
+            gameOver = true;
+            playerWon = true;
+
+            let btnNewGame = document.getElementById("btnNewGame");
+            
+            btnNewGame.innerHTML = ":D"
+            btnNewGame.classList.remove("button_red");
+            btnNewGame.classList.add("button_green");
+    
+            alert("You win");
+        }
+    }
     
     window.addEventListener('contextmenu', (event) => event.preventDefault());
 
