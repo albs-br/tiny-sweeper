@@ -262,7 +262,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
         if(!btnFlagClicked && currentMatrixPos.isFlagged) return;
 
-        if(btnFlagClicked && bombsLeft <= 0) return;
+        if(btnFlagClicked && bombsLeft <= 0 && !currentMatrixPos.isFlagged) return;
         
         // Set flag logic
         if(btnFlagClicked && !currentMatrixPos.isClicked) {
