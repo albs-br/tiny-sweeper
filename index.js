@@ -2,7 +2,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
     const appDiv = document.getElementById('app');
 
-    const BOMBS_NUMBER = 10;
+    const BOMBS_NUMBER = 2; //10;
     const COLUMNS = 12;
     const LINES = 22;
     
@@ -15,21 +15,54 @@ document.addEventListener("DOMContentLoaded", function() {
     let timeBtnStartPressed;
     let btnFlagClicked;
     let playerWon;
+    let showDialog;
+    let showDialog_Return;
 
     // DOM / window Objects
     let timer;
     let displayBombsLeft;
     let displayTime;
 
+    const ShowDialog = (text) => {
+        //if(showDialog) return;
+
+        // Dialog box
+        let dialog = document.getElementById("dialog");
+        dialog.style.display = 'block';
+
+        //if(showDialog) {
+        // }
+        // else {
+        //     dialog.style.display = 'none';
+        // }
+
+        let dialogText = document.getElementById("dialogText");
+        dialogText.innerHTML = text;
+
+        showDialog = true;
+    }
+
+    const CloseDialog = () => {
+        let dialog = document.getElementById("dialog");
+        dialog.style.display = 'none';
+        showDialog = false;
+    }
+    window.CloseDialog = CloseDialog;
+
     const StartGame = () => {
 
         if(gameStarted) {
             if(!window.confirm("New game?")) return;
+            // ShowDialog("New game?");
+
+            // if(!showDialog_Return) return;
         }
 
         gameStarted = false;
         gameOver = false;
         playerWon = false;
+        showDialog = false;
+        showDialog_Return = false;
 
         timer = window.setInterval(UpdateScore, 100);
         bombsLeft = BOMBS_NUMBER;
@@ -162,6 +195,10 @@ document.addEventListener("DOMContentLoaded", function() {
                     + ` onclick='window.CellClick(this);' onmousedown='window.CellClickDown(this, event);' onmouseup='window.CellClickUp(this, event);'></div>`;
             }
         }
+
+        // Dialog box
+        playfieldHTML += "<div id='dialog'><div id='dialogText'></div><button id='dialogOK' onclick='window.CloseDialog();'>OK</button></div>";
+
         appDiv.innerHTML = playfieldHTML;
         
         // Update matrix to include ref for each HTML cell
@@ -513,7 +550,8 @@ document.addEventListener("DOMContentLoaded", function() {
             btnNewGame.classList.remove("button_red");
             btnNewGame.classList.add("button_green");
     
-            alert("You win");
+            //alert("You win");
+            ShowDialog("You win");
         }
     }
     

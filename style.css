@@ -158,3 +158,34 @@ h2 {
   padding-left: 10px;
   padding-right: 10px;
 }
+
+#dialog {
+  display: none;
+  position: absolute;
+  background-color: rgba(226, 216, 216, 0.8);
+  left: 10%;
+  top: 45%;
+  width: 80%;
+  height: 15%;
+
+  border-top: 3px solid rgb(255, 255, 255); /* 2px; */
+  border-left: 3px solid  rgb(255, 255, 255); /* 2px; */
+  border-right: 3px solid rgb(65, 61, 61); /* 2px; */
+  border-bottom: 3px solid rgb(65, 61, 61); /* 2px; */
+}
+
+#dialogText {
+  position: absolute;
+  left: 10%;
+  top: 10%;
+  width: 80%;
+  height: 30%;
+}
+
+#dialogOK {
+  position: absolute;
+  left: 30%;
+  top: 60%;
+  width: 40%;
+  height: 30%;
+}
