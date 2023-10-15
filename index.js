@@ -14,7 +14,7 @@ document.addEventListener("DOMContentLoaded", function() {
     let gameTimeStart;
     let timeBtnStartPressed;
     let btnFlagClicked;
-    let playerWon;
+    //let playerWon;
     let showDialog;
     let showDialog_Return;
 
@@ -60,7 +60,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
         gameStarted = false;
         gameOver = false;
-        playerWon = false;
+        //playerWon = false;
         showDialog = false;
         showDialog_Return = false;
 
@@ -337,7 +337,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
 
-            //loop through all playfield to show all other bombs
+            //loop through all playfield (except current cell) to show all other bombs
             for (let lineLoop = 0; lineLoop < LINES; lineLoop++) {
                 for (let colLoop = 0; colLoop < COLUMNS; colLoop++) {
                     if(!(line == lineLoop && col == colLoop)) {
@@ -366,6 +366,21 @@ document.addEventListener("DOMContentLoaded", function() {
             btnNewGame.innerHTML = ":P"
             btnNewGame.classList.add("button_red");
             btnNewGame.classList.remove("button_green");
+
+            // Loop through playfield (except current cell) searching for misplaced flags
+            for (let lineLoop = 0; lineLoop < LINES; lineLoop++) {
+                for (let colLoop = 0; colLoop < COLUMNS; colLoop++) {
+                    if(!(line == lineLoop && col == colLoop)) {
+                        let matrixPosLoop = matrix[lineLoop][colLoop];
+                        //console.info(colLoop, lineLoop, matrixPosLoop.isFlagged, matrixPosLoop.hasBomb);
+                        if(matrixPosLoop.isFlagged && !matrixPosLoop.hasBomb) {
+                            let cellLoop = matrix[lineLoop][colLoop].cell;
+                            cellLoop.classList.remove("flag");
+                            cellLoop.classList.add("misplaced-flag");
+                        }
+                    }
+                }
+            }
         } 
         else {
             // recursivelly find all empty cells connected to this one
@@ -530,6 +545,9 @@ document.addEventListener("DOMContentLoaded", function() {
     // }
 
     const CheckIfGameEnded = () => {
+
+        if(gameOver) return;
+
         let hasSomeCellUnclicked = false;
         for (let line = 0; (line < LINES) && !hasSomeCellUnclicked; line++) {
             for (let col = 0; (col < COLUMNS) && !hasSomeCellUnclicked; col++) {
@@ -542,7 +560,6 @@ document.addEventListener("DOMContentLoaded", function() {
 
         if(!hasSomeCellUnclicked) { 
             gameOver = true;
-            playerWon = true;
 
             let btnNewGame = document.getElementById("btnNewGame");
             
@@ -550,7 +567,6 @@ document.addEventListener("DOMContentLoaded", function() {
             btnNewGame.classList.remove("button_red");
             btnNewGame.classList.add("button_green");
     
-            //alert("You win");
             ShowDialog("You win");
         }
     }

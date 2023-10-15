@@ -58,6 +58,11 @@ h2 {
   background-image: url("flag.png");
 }
 
+.misplaced-flag {
+  background-size: cover; 
+  background-image: url("misplaced-flag.png");
+}
+
 /* .gray {
   background-color: rgb(226, 216, 216);
 } */
