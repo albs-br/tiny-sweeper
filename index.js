@@ -23,37 +23,60 @@ document.addEventListener("DOMContentLoaded", function() {
     let displayBombsLeft;
     let displayTime;
 
-    const ShowDialog = (text) => {
-        //if(showDialog) return;
-
-        // Dialog box
+    const ShowDialog = (text, yesNo) => {
         let dialog = document.getElementById("dialog");
         dialog.style.display = 'block';
-
-        //if(showDialog) {
-        // }
-        // else {
-        //     dialog.style.display = 'none';
-        // }
 
         let dialogText = document.getElementById("dialogText");
         dialogText.innerHTML = text;
 
         showDialog = true;
+        showDialog_Return = false;
+
+        let dialogOK = document.getElementById("dialogOK");
+        let dialogYes = document.getElementById("dialogYes");
+        let dialogNo = document.getElementById("dialogNo");
+        if(yesNo) {
+            dialogOK.style.display = "none";
+            dialogYes.style.display = "block";
+            dialogNo.style.display = "block";
+        }
+        else {
+            dialogOK.style.display = "block";
+            dialogYes.style.display = "none";
+            dialogNo.style.display = "none";
+        }
     }
 
     const CloseDialog = () => {
         let dialog = document.getElementById("dialog");
         dialog.style.display = 'none';
         showDialog = false;
+        showDialog_Return = false;
     }
     window.CloseDialog = CloseDialog;
+
+    const CloseDialog_Yes = () => {
+        let dialog = document.getElementById("dialog");
+        dialog.style.display = 'none';
+        showDialog_Return = true;
+
+        StartGame();
+
+        showDialog = false;
+    }
+    window.CloseDialog_Yes = CloseDialog_Yes;
 
     const StartGame = () => {
 
         if(gameStarted) {
-            if(!window.confirm("New game?")) return;
-            // ShowDialog("New game?");
+            // if(!window.confirm("New game?")) return;
+
+            if(!showDialog) {
+                ShowDialog("New game?", true);
+                return;
+            }
+            if(!showDialog_Return) return;
 
             // if(!showDialog_Return) return;
         }
@@ -197,7 +220,12 @@ document.addEventListener("DOMContentLoaded", function() {
         }
 
         // Dialog box
-        playfieldHTML += "<div id='dialog'><div id='dialogText'></div><button id='dialogOK' onclick='window.CloseDialog();'>OK</button></div>";
+        playfieldHTML += "<div id='dialog'>";
+        playfieldHTML += "  <div id='dialogText'></div>";
+        playfieldHTML += "  <button id='dialogOK' onclick='window.CloseDialog();'>OK</button>";
+        playfieldHTML += "  <button id='dialogYes' onclick='window.CloseDialog_Yes();'>Yes</button>";
+        playfieldHTML += "  <button id='dialogNo' onclick='window.CloseDialog();'>No</button>";
+        playfieldHTML += "</div>";
 
         appDiv.innerHTML = playfieldHTML;
         

@@ -200,3 +200,21 @@ h2 {
   width: 40%;
   height: 30%;
 }
+
+#dialogYes {
+  position: absolute;
+  font-size: large;
+  left: 15%;
+  top: 60%;
+  width: 30%;
+  height: 30%;
+}
+
+#dialogNo {
+  position: absolute;
+  font-size: large;
+  left: 55%;
+  top: 60%;
+  width: 30%;
+  height: 30%;
+}
