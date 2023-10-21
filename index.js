@@ -1,5 +1,7 @@
 document.addEventListener("DOMContentLoaded", function() {
 
+    const version = "v.0.15.5";
+
     const appDiv = document.getElementById('app');
 
     const BOMBS_NUMBER = 2; //10;
@@ -23,49 +25,6 @@ document.addEventListener("DOMContentLoaded", function() {
     let displayBombsLeft;
     let displayTime;
 
-    const ShowDialog = (text, yesNo) => {
-        let dialog = document.getElementById("dialog");
-        dialog.style.display = 'block';
-
-        let dialogText = document.getElementById("dialogText");
-        dialogText.innerHTML = text;
-
-        showDialog = true;
-        showDialog_Return = false;
-
-        let dialogOK = document.getElementById("dialogOK");
-        let dialogYes = document.getElementById("dialogYes");
-        let dialogNo = document.getElementById("dialogNo");
-        if(yesNo) {
-            dialogOK.style.display = "none";
-            dialogYes.style.display = "block";
-            dialogNo.style.display = "block";
-        }
-        else {
-            dialogOK.style.display = "block";
-            dialogYes.style.display = "none";
-            dialogNo.style.display = "none";
-        }
-    }
-
-    const CloseDialog = () => {
-        let dialog = document.getElementById("dialog");
-        dialog.style.display = 'none';
-        showDialog = false;
-        showDialog_Return = false;
-    }
-    window.CloseDialog = CloseDialog;
-
-    const CloseDialog_Yes = () => {
-        let dialog = document.getElementById("dialog");
-        dialog.style.display = 'none';
-        showDialog_Return = true;
-
-        StartGame();
-
-        showDialog = false;
-    }
-    window.CloseDialog_Yes = CloseDialog_Yes;
 
     const StartGame = () => {
 
@@ -208,6 +167,7 @@ document.addEventListener("DOMContentLoaded", function() {
         // Draw top panel
         playfieldHTML += "<button id='btnNewGame'></button>";
         playfieldHTML += "<button id='btnFlag'></button>";
+        playfieldHTML += "<button id='btnAbout'>?</button>";
         playfieldHTML += "<div id='displayBombsLeft' class='display'></div>";
         playfieldHTML += "<div id='displayTime' class='display'></div>";
 
@@ -301,6 +261,13 @@ document.addEventListener("DOMContentLoaded", function() {
         btnFlag.style.left = ((screenWidth/2) - (topPanelHeight/2) - (((screenWidth/2) - (topPanelHeight/2))/2) + topPanelHeight*0.37) + "px";
         btnFlag.addEventListener("click", BtnFlagClick);
 
+        let btnAbout = document.getElementById("btnAbout");
+        btnAbout.style.width = (topPanelHeight * 0.75) + "px";
+        btnAbout.style.height = (topPanelHeight * 0.75) + "px";
+        btnAbout.style.top = (topPanelHeight * 0.12) + "px";
+        btnAbout.style.left = ((screenWidth/2) + (topPanelHeight*0.75)) + "px";
+        btnAbout.addEventListener("click", BtnAboutClick);
+
         displayBombsLeft.style.width = topPanelHeight + "px";
         displayBombsLeft.style.height = topPanelHeight + "px";
         //displayBombsLeft.style.left = ((screenWidth/2) - (topPanelHeight/2)) + "px";
@@ -317,7 +284,7 @@ document.addEventListener("DOMContentLoaded", function() {
     
     const CellClick = (cell) => {
       
-        if(gameOver) return;
+        if(gameOver || showDialog) return;
 
         counter = 0;
 
@@ -566,6 +533,10 @@ document.addEventListener("DOMContentLoaded", function() {
         btnFlag.classList.add("clicked");
     }
 
+    const BtnAboutClick = () => {
+        ShowDialog("Tiny Sweeper " + version, false, "30%");
+    }
+
     // Show all cells
     // const collection = document.getElementsByClassName('cell');
     // for (let i = 0; i < collection.length; i++) {
@@ -598,7 +569,60 @@ document.addEventListener("DOMContentLoaded", function() {
             ShowDialog("You win");
         }
     }
+
     
+    // ----- Dialog box functions
+    const ShowDialog = (text, yesNo, height) => {
+        let dialog = document.getElementById("dialog");
+        dialog.style.display = 'block';
+
+        let dialogText = document.getElementById("dialogText");
+        dialogText.innerHTML = text;
+
+        showDialog = true;
+        showDialog_Return = false;
+
+        let dialogOK = document.getElementById("dialogOK");
+        let dialogYes = document.getElementById("dialogYes");
+        let dialogNo = document.getElementById("dialogNo");
+        if(yesNo) {
+            dialogOK.style.display = "none";
+            dialogYes.style.display = "block";
+            dialogNo.style.display = "block";
+        }
+        else {
+            dialogOK.style.display = "block";
+            dialogYes.style.display = "none";
+            dialogNo.style.display = "none";
+        }
+
+        if(height) {
+            dialog.style.height = height;
+        }
+    }
+
+    const CloseDialog = () => {
+        let dialog = document.getElementById("dialog");
+        dialog.style.display = 'none';
+        showDialog = false;
+        showDialog_Return = false;
+    }
+    window.CloseDialog = CloseDialog;
+
+    const CloseDialog_Yes = () => {
+        let dialog = document.getElementById("dialog");
+        dialog.style.display = 'none';
+        showDialog_Return = true;
+
+        StartGame();
+
+        showDialog = false;
+    }
+    window.CloseDialog_Yes = CloseDialog_Yes;
+
+
+    
+    // --- Window events functions
     window.addEventListener('contextmenu', (event) => event.preventDefault());
 
     screen.orientation
