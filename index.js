@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", function() {
 
-    const version = "v.0.15.5";
+    const version = "v.0.15.6";
 
     const appDiv = document.getElementById('app');
 
@@ -180,7 +180,7 @@ document.addEventListener("DOMContentLoaded", function() {
         }
 
         // Dialog box
-        playfieldHTML += "<div id='dialog'>";
+        playfieldHTML += "<div id='dialog' class='dialog'>";
         playfieldHTML += "  <div id='dialogText'></div>";
         playfieldHTML += "  <button id='dialogOK' onclick='window.CloseDialog();'>OK</button>";
         playfieldHTML += "  <button id='dialogYes' onclick='window.CloseDialog_Yes();'>Yes</button>";
@@ -534,7 +534,7 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     const BtnAboutClick = () => {
-        ShowDialog("Tiny Sweeper " + version, false, "30%");
+        ShowDialog("Tiny Sweeper " + version, false, true);
     }
 
     // Show all cells
@@ -572,7 +572,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
     
     // ----- Dialog box functions
-    const ShowDialog = (text, yesNo, height) => {
+    const ShowDialog = (text, yesNo, about) => {
         let dialog = document.getElementById("dialog");
         dialog.style.display = 'block';
 
@@ -596,8 +596,11 @@ document.addEventListener("DOMContentLoaded", function() {
             dialogNo.style.display = "none";
         }
 
-        if(height) {
-            dialog.style.height = height;
+        if(about) {
+            dialog.classList.add("dialogAbout");
+        }
+        else {
+            dialog.classList.remove("dialogAbout");
         }
     }
 
@@ -621,7 +624,7 @@ document.addEventListener("DOMContentLoaded", function() {
     window.CloseDialog_Yes = CloseDialog_Yes;
 
 
-    
+
     // --- Window events functions
     window.addEventListener('contextmenu', (event) => event.preventDefault());
 
