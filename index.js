@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", function() {
 
-    const version = "v.0.15.6";
+    const version = "v.0.15.7";
 
     const appDiv = document.getElementById('app');
 
@@ -534,7 +534,12 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     const BtnAboutClick = () => {
-        ShowDialog("Tiny Sweeper " + version, false, true);
+        const html = "Tiny Sweeper "
+                        + "<span class='textAboutSmall'>" + version + "<br />"
+                        + "Author: André Baptista<br />"
+                        + "github.com/albs-br<br />"
+                        + "</span>";
+        ShowDialog(html, false, true);
     }
 
     // Show all cells
