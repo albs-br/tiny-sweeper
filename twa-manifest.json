@@ -1,0 +1,43 @@
+{
+  "packageId": "io.github.albs_br.twa",
+  "host": "albs-br.github.io",
+  "name": "Tiny Sweeper",
+  "launcherName": "Tiny Sweeper",
+  "display": "standalone",
+  "themeColor": "#C0C0C0",
+  "themeColorDark": "#000000",
+  "navigationColor": "#000000",
+  "navigationColorDark": "#000000",
+  "navigationDividerColor": "#000000",
+  "navigationDividerColorDark": "#000000",
+  "backgroundColor": "#C0C0C0",
+  "enableNotifications": true,
+  "startUrl": "/tiny-sweeper/",
+  "iconUrl": "https://albs-br.github.io/tiny-sweeper/AppImages/ios/512.png",
+  "maskableIconUrl": "https://albs-br.github.io/tiny-sweeper/AppImages/ios/512.png",
+  "splashScreenFadeOutDuration": 300,
+  "signingKey": {
+    "path": "C:\\Users\\XDAD\\source\\repos\\tiny-sweeper\\android.keystore",
+    "alias": "android"
+  },
+  "appVersionName": "1",
+  "appVersionCode": 1,
+  "shortcuts": [],
+  "generatorApp": "bubblewrap-cli",
+  "webManifestUrl": "https://albs-br.github.io/tiny-sweeper/manifest.json",
+  "fallbackType": "customtabs",
+  "features": {},
+  "alphaDependencies": {
+    "enabled": false
+  },
+  "enableSiteSettingsShortcut": true,
+  "isChromeOSOnly": false,
+  "isMetaQuest": false,
+  "fullScopeUrl": "https://albs-br.github.io/tiny-sweeper/",
+  "minSdkVersion": 19,
+  "orientation": "portrait",
+  "fingerprints": [],
+  "additionalTrustedOrigins": [],
+  "retainedBundles": [],
+  "appVersion": "1"
+}

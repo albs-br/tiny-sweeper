@@ -1,10 +1,10 @@
 document.addEventListener("DOMContentLoaded", function() {
 
-    const version = "v.0.15.7";
+    const version = "v.1.0.0";
 
     const appDiv = document.getElementById('app');
 
-    const BOMBS_NUMBER = 2; //10;
+    const BOMBS_NUMBER = 10;
     const COLUMNS = 12;
     const LINES = 22;
     
