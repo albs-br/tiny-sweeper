@@ -1,16 +1,20 @@
 document.addEventListener("DOMContentLoaded", function() {
 
-    const version = "v.1.0.0";
+    const version = "v.1.1.0";
 
     const appDiv = document.getElementById('app');
 
-    const BOMBS_NUMBER = 10;
+    const BOMBS_NUMBER_EASY = 10;
+    const BOMBS_NUMBER_MEDIUM = 25;
+    const BOMBS_NUMBER_HARD = 50;
     const COLUMNS = 12;
     const LINES = 22;
     
+    let difficultyLevel;
     let gameOver;
     let matrix = [];
     let cellClickedWidth;
+    let totalBombs;
     let bombsLeft;
     let gameStarted;
     let gameTimeStart;
@@ -47,7 +51,17 @@ document.addEventListener("DOMContentLoaded", function() {
         showDialog_Return = false;
 
         timer = window.setInterval(UpdateScore, 100);
-        bombsLeft = BOMBS_NUMBER;
+        
+        if(difficultyLevel == 1) {
+            totalBombs = BOMBS_NUMBER_MEDIUM; 
+        }
+        else if(difficultyLevel == 2) {
+            totalBombs = BOMBS_NUMBER_HARD; 
+        }
+        else { // difficultyLevel == 0 or undefined
+            totalBombs = BOMBS_NUMBER_EASY; 
+        }
+        bombsLeft = totalBombs;
         
         // Initialize playfield matrix
         matrix = [];
@@ -65,7 +79,7 @@ document.addEventListener("DOMContentLoaded", function() {
         }
 
         // Randomly put bombs
-        for (let bomb = 0; bomb < BOMBS_NUMBER; bomb++) {
+        for (let bomb = 0; bomb < totalBombs; bomb++) {
             let bombSet;
             do {
                 bombSet = false;
@@ -536,11 +550,31 @@ document.addEventListener("DOMContentLoaded", function() {
     const BtnAboutClick = () => {
         const html = "Tiny Sweeper "
                         + "<span class='textAboutSmall'>" + version + "<br />"
-                        + "Author: André Baptista<br />"
-                        + "github.com/albs-br<br />"
-                        + "</span>";
+                        + "  Author: André Baptista<br />"
+                        + "  github.com/albs-br<br />"
+                        + "</span><br />"
+                        + "<span class='textAboutSmall'>"
+                        + "  <input type='radio' name='rdoDifficulty' id='rdoEasy'   " + getDifficultLevelValue(0) + " onclick='onclickDifficultLevel(0)' /><label for='rdoEasy'>Easy</label><br />"
+                        + "  <input type='radio' name='rdoDifficulty' id='rdoMedium' " + getDifficultLevelValue(1) + " onclick='onclickDifficultLevel(1)' /><label for='rdoMedium'>Medium</label><br />"
+                        + "  <input type='radio' name='rdoDifficulty' id='rdoHard'   " + getDifficultLevelValue(2) + " onclick='onclickDifficultLevel(2)' /><label for='rdoHard'>Hard</label><br />"
+                        + "</span><br />";
         ShowDialog(html, false, true);
     }
+
+    const getDifficultLevelValue = (_value) => {
+        if(_value == difficultyLevel || (difficultyLevel == undefined && _value == 0)) {
+            return "checked='checked'"; 
+        }
+        else { 
+            return "";
+        }
+    }
+    window.getDifficultLevelValue = getDifficultLevelValue;
+
+    const onclickDifficultLevel = (_value) => {
+        difficultyLevel = _value;
+    }
+    window.onclickDifficultLevel = onclickDifficultLevel;
 
     // Show all cells
     // const collection = document.getElementsByClassName('cell');

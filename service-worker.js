@@ -1,4 +1,4 @@
-const version = "v.1.0.0"; // change version here to force app update 
+const version = "v.1.1.0"; // change version here to force app update 
 
 var dataCacheName = 'tiny-sweeper';
 var cacheName = 'tiny-sweeper';

@@ -236,8 +236,8 @@ h2 {
 }
 
 .dialogAbout {
-  top: 35%;
-  height: 30%;
+  top: 150px;
+  height: 350px;
 }
 
 .dialogAbout #dialogText {
@@ -255,9 +255,9 @@ h2 {
   position: absolute;
   font-size: large;
   left: 30%;
-  top: 70%;
+  top: 280px;
   width: 40%;
-  height: 20%;
+  height: 40px;
 }
 
 .dialogAbout .textAboutSmall {
