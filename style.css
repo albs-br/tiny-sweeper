@@ -76,6 +76,11 @@ h2 {
   border-bottom: 3px solid rgb(65, 61, 61); /* 2px; */
 }
 
+/* @media (min-width: 400) {
+  .unclicked {
+  }
+} */
+
 .empty {
   /* width: 19px;
   height: 19px; */
