@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", function() {
 
-    const version = "v.1.1.3";
+    const version = "v.1.1.6";
 
     const appDiv = document.getElementById('app');
 
