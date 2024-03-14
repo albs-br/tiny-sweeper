@@ -1,8 +1,19 @@
 html, body{
     margin: 0;
     padding: 0;
+    
+    font-family: 'Courier New', Courier, monospace;
     font-size: 25px;
+    
     background-color: rgb(202, 196, 196);
+
+    /* prevent text selection */
+    -webkit-user-select: none; /* Safari */
+    -ms-user-select: none; /* IE 10 and IE 11 */
+    user-select: none; /* Standard syntax */
+
+    /* prevent refresh when pulling down page on mobile */
+    overscroll-behavior-y: contain;
 }
 
 h1,
@@ -10,18 +21,51 @@ h2 {
   font-family: 'Courier New', Courier, monospace;
 }
   
-/* #app {
-  background-color: rgb(184, 60, 60);
-} */
+#app {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  width: 100%;
+  height: 100%;
+
+  /* border: 1px solid red; */
+
+  /* background-color: rgb(184, 60, 60); */
+}
 
 .cell {
   position: absolute;
+
+  background-color: rgb(202, 196, 196);
 
   /* width: 16px;
   height: 16px; */
   /* width: 6%;
   height: 6%; */
 }
+
+.bomb {
+  background-size: cover; 
+  background-image: url("bomb.png");
+}
+
+.red {
+  background-color: red;
+}
+
+.flag {
+  background-size: cover; 
+  background-image: url("flag.png");
+}
+
+.misplaced-flag {
+  background-size: cover; 
+  background-image: url("misplaced-flag.png");
+}
+
+/* .gray {
+  background-color: rgb(226, 216, 216);
+} */
 
 .unclicked {
   background-color: rgb(226, 216, 216);
@@ -32,11 +76,16 @@ h2 {
   border-bottom: 3px solid rgb(65, 61, 61); /* 2px; */
 }
 
+/* @media (min-width: 400) {
+  .unclicked {
+  }
+} */
+
 .empty {
   /* width: 19px;
   height: 19px; */
 
-  background-color: rgb(202, 196, 196);
+  /* background-color: rgb(202, 196, 196); */
   border-top: 1px solid rgb(139, 133, 133); /* 1px; */
   border-left: 1px solid rgb(139, 133, 133); /* 1px; */
 
@@ -46,26 +95,176 @@ h2 {
 
 #btnNewGame {
     position: absolute;
+    
     background-color: yellow;
     font-weight: bold;
     font-size: 25px;
 }
 
+#btnNewGame.button_red {
+  color: white;
+  background-color: red;
+}
+
+#btnNewGame.button_green {
+  color: white;
+  background-color: green;
+}
+
+#btnFlag {
+  position: absolute;
+  background-size: cover; 
+  background-image: url("flag.png");
+
+  background-color: rgb(226, 216, 216);
+
+  border-top: 3px solid rgb(255, 255, 255); /* 2px; */
+  border-left: 3px solid  rgb(255, 255, 255); /* 2px; */
+  border-right: 3px solid rgb(65, 61, 61); /* 2px; */
+  border-bottom: 3px solid rgb(65, 61, 61); /* 2px; */
+}
+
+#btnFlag.unclicked {
+  background-color: rgb(226, 216, 216);
+
+  border-top: 3px solid rgb(255, 255, 255); /* 2px; */
+  border-left: 3px solid  rgb(255, 255, 255); /* 2px; */
+  border-right: 3px solid rgb(65, 61, 61); /* 2px; */
+  border-bottom: 3px solid rgb(65, 61, 61); /* 2px; */
+}
+
+#btnFlag.clicked {
+  background-color: rgb(128, 128, 128);
+
+  border-top: 5px solid  rgb(65, 61, 61); /* 2px; */
+  border-left: 5px solid rgb(65, 61, 61); /* 2px; */
+  border-right: 0px solid;
+  border-bottom: 0px solid;
+}
+
+#btnAbout {
+  position: absolute;
+  /* background-size: cover; 
+  background-image: url("flag.png"); */
+
+  background-color: rgb(226, 216, 216);
+
+  border-top: 3px solid rgb(255, 255, 255); /* 2px; */
+  border-left: 3px solid  rgb(255, 255, 255); /* 2px; */
+  border-right: 3px solid rgb(65, 61, 61); /* 2px; */
+  border-bottom: 3px solid rgb(65, 61, 61); /* 2px; */
+}
+
 .display {
-    position: absolute;
-    top: 0px;
-    background-color: black;
-    color: white;
-    text-align: center;
-    font-weight: bold;
-    font-size: 40px;
+  position: absolute;
+  top: 0px;
+  
+  background-color: black;
+  color: white;
+  text-align: center;
+  font-weight: bold;
+  font-size: 40px;
 }
 
 #displayBombsLeft {
-    left: 0px;
+  left: 0px;
+  top: 0px;
+
+  padding-left: 10px;
+  padding-right: 10px;
 }
 
 #displayTime {
-    /* left: 100px; */
-    /* right: 0px; */
+  right: 0px;
+  top: 0px;
+
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+
+
+/* Dialog */
+.dialog {
+  display: none;
+  position: absolute;
+  background-color: rgba(226, 216, 216, 0.8);
+  left: 10%;
+  top: 45%;
+  width: 80%;
+  height: 15%;
+
+  font-weight: bold;
+
+  border-top: 3px solid rgb(255, 255, 255); /* 2px; */
+  border-left: 3px solid  rgb(255, 255, 255); /* 2px; */
+  border-right: 3px solid rgb(65, 61, 61); /* 2px; */
+  border-bottom: 3px solid rgb(65, 61, 61); /* 2px; */
+}
+
+.dialog #dialogText {
+  position: absolute;
+  text-align: center;
+  vertical-align: middle;
+  left: 10%;
+  top: 20%;
+  width: 80%;
+  height: 30%;
+  /* border: 1px solid; */
+}
+
+.dialog #dialogOK {
+  position: absolute;
+  font-size: large;
+  left: 30%;
+  top: 60%;
+  width: 40%;
+  height: 30%;
+}
+
+.dialog #dialogYes {
+  position: absolute;
+  font-size: large;
+  left: 15%;
+  top: 60%;
+  width: 30%;
+  height: 30%;
+}
+
+.dialog #dialogNo {
+  position: absolute;
+  font-size: large;
+  left: 55%;
+  top: 60%;
+  width: 30%;
+  height: 30%;
+}
+
+.dialogAbout {
+  top: 150px;
+  height: 350px;
+}
+
+.dialogAbout #dialogText {
+  position: absolute;
+  text-align: center;
+  vertical-align: middle;
+  left: 10%;
+  top: 10%;
+  width: 80%;
+  height: 40%;
+  /* border: 1px solid; */
+}
+
+.dialogAbout #dialogOK {
+  position: absolute;
+  font-size: large;
+  left: 30%;
+  top: 280px;
+  width: 40%;
+  height: 40px;
+}
+
+.dialogAbout .textAboutSmall {
+  font-size: medium;
 }

@@ -1,0 +1,8 @@
+io/github/albs_br/twa/DelegationService.java
+ io.github.albs_br.twa.DelegationService
+io/github/albs_br/twa/BuildConfig.java
+ io.github.albs_br.twa.BuildConfig
+io/github/albs_br/twa/Application.java
+ io.github.albs_br.twa.Application
+io/github/albs_br/twa/LauncherActivity.java
+ io.github.albs_br.twa.LauncherActivity
