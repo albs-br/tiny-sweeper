@@ -28,7 +28,7 @@
         \"relation\": [\"delegate_permission/common.handle_all_urls\"],
         \"target\": {
             \"namespace\": \"web\",
-            \"site\": \"https://albs-br.github.io\"
+            \"site\": \"https://albs-br.github.io/tiny-sweeper\"
         }
     }]
     
