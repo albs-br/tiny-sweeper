@@ -51,13 +51,14 @@ def twaManifest = [
 ]
 
 android {
-    compileSdkVersion 34
+    compileSdkVersion 36
+    namespace "io.github.albs_br.twa"
     defaultConfig {
         applicationId "io.github.albs_br.twa"
-        minSdkVersion 19
-        targetSdkVersion 34
-        versionCode 1
-        versionName "1"
+        minSdkVersion 21
+        targetSdkVersion 35
+        versionCode 2
+        versionName "2"
 
         // The name for the application
         resValue "string", "appName", twaManifest.name
@@ -73,12 +74,12 @@ android {
             // The URL the Web Manifest for the Progressive Web App that the TWA points to. This
             // is used by Chrome OS and Meta Quest to open the Web version of the PWA instead of
             // the TWA, as it will probably give a better user experience for non-mobile devices.
-            resValue "string", "webManifestUrl", 'https://albs-br.github.io/tiny-sweeper/manifest.json'
+            resValue "string", "webManifestUrl", 'http://albs-br.github.io/tiny-sweeper/manifest.json'
         
 
         
             // This is used by Meta Quest.
-            resValue "string", "fullScopeUrl", 'https://albs-br.github.io/tiny-sweeper/'
+            resValue "string", "fullScopeUrl", 'http://albs-br.github.io/tiny-sweeper/'
         
 
         
@@ -203,6 +204,6 @@ repositories {
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     
-        implementation 'com.google.androidbrowserhelper:androidbrowserhelper:2.5.0'
+        implementation 'com.google.androidbrowserhelper:androidbrowserhelper:2.6.0'
     
 }

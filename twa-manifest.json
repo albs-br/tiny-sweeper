@@ -17,14 +17,14 @@
   "maskableIconUrl": "https://albs-br.github.io/tiny-sweeper/AppImages/ios/512.png",
   "splashScreenFadeOutDuration": 300,
   "signingKey": {
-    "path": "C:\\Users\\XDAD\\source\\repos\\tiny-sweeper\\android.keystore",
+    "path": "C:\\Users\\albs_\\source\\repos\\tiny-sweeper\\android.keystore",
     "alias": "android"
   },
   "appVersionName": "1",
   "appVersionCode": 1,
   "shortcuts": [],
   "generatorApp": "bubblewrap-cli",
-  "webManifestUrl": "https://albs-br.github.io/tiny-sweeper/manifest.json",
+  "webManifestUrl": "http://albs-br.github.io/tiny-sweeper/manifest.json",
   "fallbackType": "customtabs",
   "features": {},
   "alphaDependencies": {
@@ -33,11 +33,12 @@
   "enableSiteSettingsShortcut": true,
   "isChromeOSOnly": false,
   "isMetaQuest": false,
-  "fullScopeUrl": "https://albs-br.github.io/tiny-sweeper/",
-  "minSdkVersion": 19,
+  "fullScopeUrl": "http://albs-br.github.io/tiny-sweeper/",
+  "minSdkVersion": 21,
   "orientation": "portrait",
   "fingerprints": [],
   "additionalTrustedOrigins": [],
   "retainedBundles": [],
+  "protocolHandlers": [],
   "appVersion": "1"
 }
