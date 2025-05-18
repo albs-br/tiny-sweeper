@@ -51,11 +51,11 @@ def twaManifest = [
 ]
 
 android {
-    compileSdkVersion 33
+    compileSdkVersion 34
     defaultConfig {
         applicationId "io.github.albs_br.twa"
         minSdkVersion 19
-        targetSdkVersion 33
+        targetSdkVersion 34
         versionCode 1
         versionName "1"
 
