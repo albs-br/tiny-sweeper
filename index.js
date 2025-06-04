@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", function() {
 
-    const version = "v.1.1.8";
+    const VERSION = "v.1.2.0";
 
     const appDiv = document.getElementById('app');
 
@@ -549,7 +549,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
     const BtnAboutClick = () => {
         const html = "Tiny Sweeper "
-                        + "<span class='textAboutSmall'>" + version + "<br />"
+                        + "<span class='textAboutSmall'>" + VERSION + "<br />"
                         + "  Author: André Baptista<br />"
                         + "  github.com/albs-br<br />"
                         + "</span><br />"

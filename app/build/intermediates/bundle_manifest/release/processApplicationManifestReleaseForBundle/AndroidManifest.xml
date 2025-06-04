@@ -23,8 +23,8 @@
 -->
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="io.github.albs_br.twa"
-    android:versionCode="2"
-    android:versionName="2" >
+    android:versionCode="4"
+    android:versionName="v.1.2.0" >
 
     <uses-sdk
         android:minSdkVersion="21"
@@ -117,6 +117,9 @@
             <meta-data
                 android:name="android.support.customtabs.trusted.FALLBACK_STRATEGY"
                 android:value="@string/fallbackType" />
+            <meta-data
+                android:name="android.support.customtabs.trusted.DISPLAY_MODE"
+                android:value="immersive" />
             <meta-data
                 android:name="android.support.customtabs.trusted.SCREEN_ORIENTATION"
                 android:value="@string/orientation" />
