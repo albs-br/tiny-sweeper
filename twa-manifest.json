@@ -20,8 +20,8 @@
     "path": "C:\\Users\\albs_\\source\\repos\\tiny-sweeper\\android.keystore",
     "alias": "android"
   },
-  "appVersionName": "v.1.2.0",
-  "appVersionCode": 4,
+  "appVersionName": "v.1.2.1",
+  "appVersionCode": 6,
   "shortcuts": [],
   "generatorApp": "bubblewrap-cli",
   "webManifestUrl": "http://albs-br.github.io/tiny-sweeper/manifest.json",
@@ -40,5 +40,5 @@
   "additionalTrustedOrigins": [],
   "retainedBundles": [],
   "protocolHandlers": [],
-  "appVersion": "v.1.2.0"
+  "appVersion": "v.1.2.1"
 }
