@@ -1,3 +1,8 @@
+/* Enable support for both color schemes */
+/* :root {
+  color-scheme: light dark;
+} */
+
 html, body{
     margin: 0;
     padding: 0;
@@ -5,7 +10,8 @@ html, body{
     font-family: 'Courier New', Courier, monospace;
     font-size: 25px;
     
-    background-color: rgb(202, 196, 196);
+    /* background-color: rgb(202, 196, 196); */
+    /* background-color: light-dark(rgb(202, 196, 196), black); */
 
     /* prevent text selection */
     -webkit-user-select: none; /* Safari */
@@ -15,6 +21,17 @@ html, body{
     /* prevent refresh when pulling down page on mobile */
     overscroll-behavior-y: contain;
 }
+
+html.light, body.light {
+    background-color: rgb(202, 196, 196);
+}
+
+html.dark, body.dark {
+    background-color: rgb(32, 32, 32);
+}
+
+
+
 
 h1,
 h2 {
@@ -36,7 +53,7 @@ h2 {
 .cell {
   position: absolute;
 
-  background-color: rgb(202, 196, 196);
+  /* background-color: rgb(202, 196, 196); */
 
   /* width: 16px;
   height: 16px; */
@@ -67,11 +84,32 @@ h2 {
   background-color: rgb(226, 216, 216);
 } */
 
+
+
+
 .unclicked {
+  /* background-color: rgb(226, 216, 216); */
+
+  /* border-top: 3px solid rgb(255, 255, 255);  2px; */
+  /* border-left: 3px solid  rgb(255, 255, 255);  2px; */
+  /* border-right: 3px solid rgb(65, 61, 61);  2px; */
+  /* border-bottom: 3px solid rgb(65, 61, 61);  2px; */
+}
+
+.unclicked.light {
   background-color: rgb(226, 216, 216);
 
   border-top: 3px solid rgb(255, 255, 255); /* 2px; */
   border-left: 3px solid  rgb(255, 255, 255); /* 2px; */
+  border-right: 3px solid rgb(65, 61, 61); /* 2px; */
+  border-bottom: 3px solid rgb(65, 61, 61); /* 2px; */
+}
+
+.unclicked.dark {
+  background-color: rgb(128, 128, 128);
+
+  border-top: 3px solid rgb(192, 192, 192); /* 2px; */
+  border-left: 3px solid  rgb(192, 192, 192); /* 2px; */
   border-right: 3px solid rgb(65, 61, 61); /* 2px; */
   border-bottom: 3px solid rgb(65, 61, 61); /* 2px; */
 }
@@ -86,12 +124,26 @@ h2 {
   height: 19px; */
 
   /* background-color: rgb(202, 196, 196); */
-  border-top: 1px solid rgb(139, 133, 133); /* 1px; */
-  border-left: 1px solid rgb(139, 133, 133); /* 1px; */
+  /* border-top: 1px solid rgb(139, 133, 133);  1px; */
+  /* border-left: 1px solid rgb(139, 133, 133);  1px; */
 
   font-weight: bold;
   text-align: center;
 }
+
+.empty.light {
+  background-color: rgb(202, 196, 196);
+  border-top: 1px solid rgb(139, 133, 133); /* 1px; */
+  border-left: 1px solid rgb(139, 133, 133); /* 1px; */
+}
+
+.empty.dark {
+  background-color: rgb(180, 180, 180);
+  border-top: 1px solid rgb(139, 133, 133); /* 1px; */
+  border-left: 1px solid rgb(139, 133, 133); /* 1px; */
+}
+
+
 
 #btnNewGame {
     position: absolute;
@@ -241,8 +293,8 @@ h2 {
 }
 
 .dialogAbout {
-  top: 150px;
-  height: 350px;
+  top: 100px;
+  height: 450px;
 }
 
 .dialogAbout #dialogText {
@@ -260,7 +312,7 @@ h2 {
   position: absolute;
   font-size: large;
   left: 30%;
-  top: 280px;
+  top: 380px;
   width: 40%;
   height: 40px;
 }

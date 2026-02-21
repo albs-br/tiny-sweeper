@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", function() {
 
-    const VERSION = "v.1.2.1";
+    const VERSION = "v.1.3.0";
 
     const appDiv = document.getElementById('app');
 
@@ -23,6 +23,7 @@ document.addEventListener("DOMContentLoaded", function() {
     //let playerWon;
     let showDialog;
     let showDialog_Return;
+    let theme;
 
     // DOM / window Objects
     let timer;
@@ -62,7 +63,7 @@ document.addEventListener("DOMContentLoaded", function() {
             totalBombs = BOMBS_NUMBER_EASY; 
         }
         bombsLeft = totalBombs;
-        
+
         // Initialize playfield matrix
         matrix = [];
         for (let line = 0; line < LINES; line++) {
@@ -150,6 +151,9 @@ document.addEventListener("DOMContentLoaded", function() {
         btnNewGame.classList.remove("button_green");
 
         SetBtnFlagUnclicked();
+
+        if(!theme) theme = 0; // Light Mode
+        setTheme();
     };
 
     const UpdateScore = () => {
@@ -553,6 +557,12 @@ document.addEventListener("DOMContentLoaded", function() {
                         + "  Author: André Baptista<br />"
                         + "  github.com/albs-br<br />"
                         + "</span><br />"
+
+                        + "<span class='textAboutSmall'>"
+                        + "  <input type='radio' name='rdoTheme' id='rdoLightMode'   " + getThemeValue(0) + " onclick='onclickTheme(0)' /><label for='rdoLightMode'>Light Mode</label><br />"
+                        + "  <input type='radio' name='rdoTheme' id='rdoDarkMode'    " + getThemeValue(1) + " onclick='onclickTheme(1)' /><label for='rdoDarkMode'>Dark Mode</label><br />"
+                        + "</span><br />"
+
                         + "<span class='textAboutSmall'>"
                         + "  <input type='radio' name='rdoDifficulty' id='rdoEasy'   " + getDifficultLevelValue(0) + " onclick='onclickDifficultLevel(0)' /><label for='rdoEasy'>Easy</label><br />"
                         + "  <input type='radio' name='rdoDifficulty' id='rdoMedium' " + getDifficultLevelValue(1) + " onclick='onclickDifficultLevel(1)' /><label for='rdoMedium'>Medium</label><br />"
@@ -576,6 +586,55 @@ document.addEventListener("DOMContentLoaded", function() {
     }
     window.onclickDifficultLevel = onclickDifficultLevel;
 
+
+
+    const getThemeValue = (_value) => {
+        if(_value == theme || (theme == undefined && _value == 0)) {
+            return "checked='checked'"; 
+        }
+        else { 
+            return "";
+        }
+    }
+    window.getThemeValue = getThemeValue;
+
+    const onclickTheme = (_value) => {
+        theme = _value;
+        setTheme();
+    }
+    window.onclickTheme = onclickTheme;
+
+    const setTheme = () => {
+
+        let classToBeAdded = "";
+        let classToBeRemoved = "";
+        if(theme == 0) {
+            classToBeAdded = "light";
+            classToBeRemoved = "dark";
+        }
+        else {
+            classToBeAdded = "dark";
+            classToBeRemoved = "light";
+        }
+
+        const html = document.getElementsByTagName("html")[0];
+        const body = document.getElementsByTagName("body")[0];
+        const arrayObjs = [html, body];
+        for(let i=0; i < arrayObjs.length; i++) {
+            arrayObjs[i].classList.remove(classToBeRemoved);
+            arrayObjs[i].classList.add(classToBeAdded);
+        }
+
+        const cells = document.querySelectorAll(".cell");
+
+        console.log(cells.length);
+
+        for(let i=0; i < cells.length; i++) {
+            cells[i].classList.remove(classToBeRemoved);
+            cells[i].classList.add(classToBeAdded);
+        }
+    }
+    
     // Show all cells
     // const collection = document.getElementsByClassName('cell');
     // for (let i = 0; i < collection.length; i++) {
